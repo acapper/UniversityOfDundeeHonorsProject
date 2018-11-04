@@ -1,2 +1,2 @@
-# University Of DundeeHonors Project
+# University Of Dundee Honors Project
 This is a repository of my solo honors project conducted in my final year at the University of Dundee
