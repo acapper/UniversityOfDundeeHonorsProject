@@ -1,0 +1,23 @@
+mixin jobsheet-card(obj)
+	- var firstname = obj[0].customer.firstname
+	- var lastname = obj[0].customer.lastname
+	card.box.is-paddingless
+		.card-content(style="padding: 0.5rem")
+			.media
+				.media-left
+					figure.image.is-48x48
+						span.icon.is-large
+							i.far.fa-file-alt.fa-lg
+				.media-content
+					h1.title.is-4 #{firstname}
+					h2.subtitle.is-6 #{lastname}
+				.media-right
+					figure.image.is-48x48
+						span.icon.is-large
+							i.fas.fa-ellipsis-v
+			.content.is-clearfix
+				br
+				.tags.is-pulled-right
+					span.tag.is-link Link
+					span.tag.is-primary Link
+					span.tag.is-danger Link

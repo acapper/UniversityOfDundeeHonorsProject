@@ -1,7 +1,10 @@
-mixin jobsheet-list(...obj)
-	.card
-		header.card-header.is-primary
-			p.card-header-title Default Title
+include jobsheet-card
+mixin jobsheet-list(obj)
+	.box.is-paddingless
+		header.card-header.is-primary.is-shadowless
+			div.card-header-title
+				span.tag.is-info 10
+				h1.card-header-title Default Title
 			a.card-header-icon
 				span.icon
 					i.fas.fa-ellipsis-v
@@ -11,15 +14,10 @@ mixin jobsheet-list(...obj)
 		.tile
 			.tile.is-vertical
 				.tile.is-parent.is-vertical
-					article.tile.is-child.notification.is-warning
-						- var firstname = obj[0][0].customer.firstname
-						- var lastname = obj[0][0].customer.lastname
-						p.title #{firstname}
-						p.subtitle #{lastname}
-					article.tile.is-child.notification.is-dark
-						p.title Another jobsheet
-						p.subtitle Jobsheet subtitle
-		footer.card-footer
-			a.card-footer-item Save
-			a.card-footer-item Edit
-			a.card-footer-item Delete
+					+jobsheet-card(obj)
+					+jobsheet-card(obj)
+					+jobsheet-card(obj)
+		//footer.card-footer
+			//a.card-footer-item Save
+			//a.card-footer-item Edit
+			//a.card-footer-item Delete
