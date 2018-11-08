@@ -19,7 +19,6 @@ router.get('/', function(req, res, next) {
 				.find(query)
 				.toArray(function(err, result) {
 					if (err) throw err;
-					console.log(result);
 					res.render('index', { title: 'Express', result });
 				});
 			client.close();
