@@ -1,24 +1,26 @@
 mixin jobsheet-card(obj)
 	- var firstname = obj[0].customer.firstname
 	- var lastname = obj[0].customer.lastname
-	card.box(style="padding: 0.75rem")
+	card.box.is-shadowless(style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd;")
 		.media
 			.media-left
-				span.icon.is-large
+				//span.icon.is-large
 					i.far.fa-file-alt.fa-lg
-			.media-content(style="padding-top: 0.4rem")
-				h1.title.is-4 
-					a Jobsheet Name
-				h2.subtitle.is-6 #{firstname} #{lastname}
-			.media-right
-				a
+			.media-content(style="padding-top: 0.4rem; padding-bottom: 0.4rem;")
+				a.is-pulled-right(style="margin-top: -0.4rem")
 					span.icon.is-large
 						i.fas.fa-ellipsis-v
-		.card-content
-			p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut mauris in lectus suscipit dictum eget nec quam. Aliquam condimentum quam nec sem dapibus sagittis. 
-		.card-content.is-paddingless
-			.tags.is-pulled-right
-				span.tag.is-link Link
-				span.tag.is-primary Link
-				span.tag.is-danger Link
-				span.tag.is-warning Link
+				h1.title.is-6 
+					a Jobsheet Name
+				h2.subtitle.is-7 #{firstname} #{lastname}
+				.content.is-small 
+					p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut mauris in lectus suscipit dictum eget nec quam. Aliquam condimentum quam nec sem dapibus sagittis. 
+				.tags.is-pulled-left.is-marginless
+					span.tag.is-link Link
+					span.tag.is-primary Link
+					span.tag.is-danger Link
+					span.tag.is-warning Link
+				.tags.is-pulled-right.is-marginless
+					span.tag.is-info Last Modified
+					span.icon(style="margin-top: -0.5rem")
+						i.fas.fa-user-circle
