@@ -1,4 +1,4 @@
-nav.navbar.is-black(role='navigation' aria-label='main navigation')
+nav.navbar.is-fixed-top.is-black(role='navigation' aria-label='main navigation' style="background:black !important;")
 	.container
 		.navbar-brand
 			a.navbar-item(href='/')
@@ -9,10 +9,8 @@ nav.navbar.is-black(role='navigation' aria-label='main navigation')
 				span(aria-hidden='true')
 		#navbarBasicExample.navbar-menu
 			.navbar-start
-				a.navbar-item
+				a.navbar-item(href='/')
 					| Home
-				a.navbar-item
-					| Documentation
 				.navbar-item.has-dropdown.is-hoverable
 					a.navbar-link
 						| More

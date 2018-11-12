@@ -1,0 +1,11 @@
+extends layout
+
+include partials/jobsheet-customer-details
+include partials/jobsheet-description
+
+block content
+	h1.title Jobsheet Name
+	+jobsheet-customer-details(jobsheet)
+	+jobsheet-description(jobsheet)
+			
+							
