@@ -1,6 +1,6 @@
 mixin jobsheet-card(obj)
-	- var firstname = obj[0].customer.firstname
-	- var lastname = obj[0].customer.lastname
+	- var firstname = obj.customer.firstname
+	- var lastname = obj.customer.lastname
 	card.box.is-shadowless(style="padding: 0.75rem; border-radius: 6px; border: 1px solid #ddd;")
 		.media
 			.media-left
@@ -11,15 +11,13 @@ mixin jobsheet-card(obj)
 					span.icon.is-large
 						i.fas.fa-ellipsis-v
 				h1.title.is-6 
-					a Jobsheet Name
+					a(href='/jobsheet/' + obj._id) Jobsheet Name
 				h2.subtitle.is-7 #{firstname} #{lastname}
 				.content.is-small 
 					p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut mauris in lectus suscipit dictum eget nec quam. Aliquam condimentum quam nec sem dapibus sagittis. 
 				.tags.is-pulled-left.is-marginless
-					span.tag.is-link Link
-					span.tag.is-primary Link
-					span.tag.is-danger Link
-					span.tag.is-warning Link
+					each tag in obj.tags
+						span.tag.is-link #{tag}
 				.tags.is-pulled-right.is-marginless
 					span.tag.is-info Last Modified
 					span.icon(style="margin-top: -0.5rem")

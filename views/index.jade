@@ -1,16 +1,11 @@
-extends layout
+extends indexlayout
 
 include partials/jobsheet-list
 
 block content
-	include navigation
-	.container
-		.section
-			.columns
+	.columns(style="overflow: hidden; height: 100%;")
+		if lists
+			each list in lists
 				.column
-					+jobsheet-list(result)
-				.column
-					+jobsheet-list(result)
-				.column
-					+jobsheet-list(result)
+					+jobsheet-list(list)
 
