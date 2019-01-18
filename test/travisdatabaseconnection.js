@@ -41,7 +41,7 @@ describe('Travis MongoDB', function() {
 	it('Database connection should fail', function(done) {
 		let connectingDb = new Promise(function(resolve, reject) {
 			MongoClient.connect(
-				uri,
+				'uri',
 				{ useNewUrlParser: true },
 				function(err, db) {
 					if (err) {
@@ -62,5 +62,9 @@ describe('Travis MongoDB', function() {
 				done();
 			}
 		);
+	});
+
+	it('Fail test', function() {
+		assert.fail();
 	});
 });
