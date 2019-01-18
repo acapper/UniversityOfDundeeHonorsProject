@@ -8,7 +8,7 @@ let uri = null;
 if (config.database.travis == false && config.database.travis != null) {
 	uri = config.database.connection;
 } else {
-	uri = 'mongodb://travis:test@127.0.0.1/mydb_test dsad';
+	uri = 'mongodb://travis:test@127.0.0.1/mydb_test';
 }
 
 describe('Travis MongoDB', function() {
@@ -34,7 +34,6 @@ describe('Travis MongoDB', function() {
 			},
 			reason => {
 				done(reason);
-				assert.fail();
 			}
 		);
 	});
@@ -42,7 +41,7 @@ describe('Travis MongoDB', function() {
 	it('Database connection should fail', function(done) {
 		let connectingDb = new Promise(function(resolve, reject) {
 			MongoClient.connect(
-				uri + 'failtext',
+				uri,
 				{ useNewUrlParser: true },
 				function(err, db) {
 					if (err) {
@@ -55,13 +54,11 @@ describe('Travis MongoDB', function() {
 		});
 		connectingDb.then(
 			result => {
-				expect(result).not.to.equal(null);
-				done();
-				result.close();
+				done(new Error('Connection should not be established'));
 			},
 			reason => {
-				done(reason);
-				assert.fail();
+				expect(reason).not.to.equal(null);
+				done();
 			}
 		);
 	});
