@@ -54,6 +54,7 @@ describe('Travis MongoDB', function() {
 		});
 		connectingDb.then(
 			result => {
+				result.close();
 				done(new Error('Connection should not be established'));
 			},
 			reason => {
