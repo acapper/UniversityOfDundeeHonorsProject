@@ -8,7 +8,7 @@ let uri = null;
 if (config.database.travis == false && config.database.travis != null) {
 	uri = config.database.connection;
 } else {
-	uri = 'mongodb://travis:test@127.0.0.1';
+	uri = 'mongodb://travis:test@127.0.0.1/mydb_test';
 }
 
 describe('Travis MongoDB', function() {
