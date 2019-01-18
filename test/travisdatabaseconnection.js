@@ -34,6 +34,34 @@ describe('Travis MongoDB', function() {
 			},
 			reason => {
 				done(reason);
+				assert.fail();
+			}
+		);
+	});
+
+	it('Database connection should fail', function(done) {
+		let connectingDb = new Promise(function(resolve, reject) {
+			MongoClient.connect(
+				uri + 'failtext',
+				{ useNewUrlParser: true },
+				function(err, db) {
+					if (err) {
+						reject(err);
+					} else {
+						resolve(db);
+					}
+				}
+			);
+		});
+		connectingDb.then(
+			result => {
+				expect(result).not.to.equal(null);
+				done();
+				result.close();
+			},
+			reason => {
+				done(reason);
+				assert.fail();
 			}
 		);
 	});
