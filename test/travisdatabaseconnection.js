@@ -5,7 +5,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const config = require('../config');
 let uri = null;
-if (!config.database.travis || config.database.travis == null) {
+if (!config.database.travis || config.database.travis != null) {
 	uri = config.database.connection;
 } else {
 	uri = 'mongodb+srv://travis:test@127.0.0.1';
