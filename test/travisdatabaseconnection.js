@@ -63,8 +63,4 @@ describe('Travis MongoDB', function() {
 			}
 		);
 	});
-
-	it('Fail test', function() {
-		assert.fail();
-	});
 });
