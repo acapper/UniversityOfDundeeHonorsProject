@@ -1,11 +1,4 @@
-extends layout/indexlayout
-
-include partials/jobsheet-list
+extends layout/layout
 
 block content
-	.columns(style="overflow: hidden; height: 100%;")
-		if lists
-			each list in lists
-				.column
-					+jobsheet-list(list)
-
+	h1 Test

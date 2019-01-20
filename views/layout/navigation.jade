@@ -1,33 +1,17 @@
-nav.navbar.is-fixed-top.is-black(role='navigation' aria-label='main navigation' style="background:black !important;")
-	.container
-		.navbar-brand
-			a.navbar-item(href='/')
-				img(src='/images/ocs-logo-white-no-text.png')
-			a.navbar-burger.burger(role='button' aria-label='menu' aria-expanded='false' data-target='navbarBasicExample')
-				span(aria-hidden='true')
-				span(aria-hidden='true')
-				span(aria-hidden='true')
-		#navbarBasicExample.navbar-menu
-			.navbar-start
-				a.navbar-item(href='/')
-					| Home
-				.navbar-item.has-dropdown.is-hoverable
-					a.navbar-link
-						| More
-					.navbar-dropdown
-						a.navbar-item
-							| About
-						a.navbar-item
-							| Jobs
-						a.navbar-item
-							| Contact
-						hr.navbar-divider
-						a.navbar-item
-							| Report an issue
-			.navbar-end
-				.navbar-item
-				.buttons
-					a.button.is-primary
-						strong Sign up
-					a.button.is-light
-						| Log in
+nav.uk-navbar-container.uk-margin(uk-navbar='')
+	.uk-navbar-left
+		.uk-navbar-item
+			img(src='/images/ocs-logo-white-no-text.png' style="height:32px").uk-logo
+		ul.uk-navbar-nav
+			li
+				a(href='#')
+					span.uk-icon.uk-margin-small-right(uk-icon='icon: star')
+					| &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Features
+		.uk-navbar-item
+			div
+				| Some 
+				a(href='#') Link
+		.uk-navbar-item
+			form(action='javascript:void(0)')
+				input.uk-input.uk-form-width-small(type='text', placeholder='Input')
+				button.uk-button.uk-button-default Button

@@ -3,12 +3,8 @@ html
 	head
 		title= title
 		include header
-	body.has-navbar-fixed-top
-		section.hero.is-fullheight
-			.hero-head
-				include navigation
-			.hero-body
-				.container
-					block content
-			.hero-foot
-				include footer
+	include navigation
+	body.uk-padding-remove
+		.uk-container
+			block content
+	include footer
