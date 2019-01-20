@@ -1,0 +1,42 @@
+mixin jobsheet-section(section)
+	li
+		a.uk-accordion-title(href="#")
+			if section.title != null
+				| #{section.title}
+			else
+				| Default Title
+		div.uk-accordion-content
+			.form.uk-form-horizontal
+				if section.fields != null && section.fields.length != 0
+					each field in section.fields
+						.div.uk-margin
+							label.uk-form-label(for=field.name)
+								| #{field.label}
+							div.uk-form-controls
+								if field.type == "text" || field.type == "date" || field.type == "password" || field.type == "time" || field.type == "number"
+									input(type=field.type name=field.name).uk-input
+								else if field.type == "checkbox"
+									input(type=field.type name=field.name).uk-checkbox
+								else if field.type == "confirmcheckbox"
+									div(uk-grid)
+										div.uk-text-center
+											label.uk-form-label(for=field.name+"required")
+												| Required &nbsp;
+												input(type=field.type name=field.name+"required").uk-checkbox
+										div
+											label.uk-form-label(for=field.name+"done")
+												| Done &nbsp;
+												input(type=field.type name=field.name+"done").uk-checkbox
+								else if field.type == "textarea"
+									textarea(type=field.type name=field.name rows=field.rows).uk-textarea
+								else if field.type == "radio"
+									ul.uk-list.uk-margin-remove
+										each radio in field.options
+											li
+												span #{radio.label} &nbsp;
+													input(type=field.type name=field.name value=radio.value).uk-radio
+								else
+									p Unhandled type
+
+				else
+					p No fields in layout
