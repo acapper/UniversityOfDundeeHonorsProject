@@ -1,0 +1,6 @@
+extends layout/layout
+
+block content
+	h1.title All jobsheets
+	each jobsheet in jobsheets
+		p #{jobsheet.title} #{jobsheet.data.name.value}
