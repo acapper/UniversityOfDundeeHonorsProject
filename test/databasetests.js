@@ -128,6 +128,7 @@ describe('Database Tests', function() {
 					throw new Error(reason);
 				}
 			);
+			con.close();
 		});
 	});
 });
