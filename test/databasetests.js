@@ -4,17 +4,14 @@ const assert = require('chai').assert;
 const db = require('../bin/database');
 const config = require('../config');
 
+let uri = null;
+if (config.database.travis == false && config.database.travis != null) {
+	uri = config.database.connection;
+} else {
+	uri = 'mongodb://travis:test@127.0.0.1/mydb_test';
+}
+
 describe('Database Tests', function() {
-	let uri = null;
-
-	before(() => {
-		if (config.database.travis == false && config.database.travis != null) {
-			uri = config.database.connection;
-		} else {
-			uri = 'mongodb://travis:test@127.0.0.1/mydb_test';
-		}
-	});
-
 	describe('Connection', function() {
 		it('Database connection should produce no errors', function(done) {
 			db.connect(uri).then(
