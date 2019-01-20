@@ -1,0 +1,16 @@
+extends layout/layout
+
+include partials/jobsheet-section
+
+block content
+	h1 #{name}
+	button#savebutton.uk-button-default
+		| Save
+	p#savemessage
+		| Not Saved
+	form#jobsheetform
+		ul(uk-accordion="multiple: true")
+			each section in layout
+				+jobsheet-section(section)
+
+	script(src='/javascripts/new-job-sheet.js')
