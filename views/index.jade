@@ -1,4 +1,10 @@
 extends layout/layout
 
+include partials/jobsheet-section
+
 block content
-	h1 Test
+	h1 #{name}
+	form
+		ul(uk-accordion="multiple: true")
+			each section in layout
+				+jobsheet-section(section)
