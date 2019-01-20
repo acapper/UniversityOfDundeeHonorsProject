@@ -253,11 +253,6 @@ module.exports = {
 					name: 'sagepayroll',
 					label: 'Sage/Payroll',
 					type: 'confirmcheckbox'
-				},
-				{
-					name: 'New',
-					label: 'New',
-					type: 'confirmcheckbox'
 				}
 			]
 		}
