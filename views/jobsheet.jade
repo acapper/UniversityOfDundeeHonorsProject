@@ -3,14 +3,18 @@ extends layout/layout
 include partials/jobsheet-section
 
 block content
-	h1 #{name}
+	if jobsheet != null
+		p#id.uk-hidden
+			| #{jobsheet._id}
+		h1 #{jobsheet._id}
+	else
+		h1 New Job Sheet
 	button#savebutton.uk-button-default
 		| Save
-	p#savemessage
-		| Not Saved
+	p#savemessage.uk-hidden
 	form#jobsheetform
 		ul(uk-accordion="multiple: true")
 			each section in layout
-				+jobsheet-section(section)
+				+jobsheet-section(section, jobsheet)
 
 	script(src='/javascripts/new-job-sheet.js')
