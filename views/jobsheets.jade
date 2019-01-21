@@ -2,5 +2,7 @@ extends layout/layout
 
 block content
 	h1.title All jobsheets
-	each jobsheet in jobsheets
-		p #{jobsheet.title} #{jobsheet.data.name.value}
+	ul.uk-list
+		each jobsheet in jobsheets
+			li
+				a(href='/jobsheet/'+jobsheet._id) #{jobsheet._id} #{jobsheet.data.customerdetailsname.value}
