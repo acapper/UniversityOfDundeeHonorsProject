@@ -1,42 +1,38 @@
-var express = require('express');
-var router = express.Router();
-var config = require('../config');
-var dbget = require('../bin/database-get');
+const express = require('express');
+const router = express.Router();
+const config = require('../config');
+const db = require('../bin/database');
 
-var mongo = require('mongodb');
-var MongoClient = require('mongodb').MongoClient;
-var uri = config.database.connection;
+const layout = require('../job-sheet-layout');
+
+const mongo = require('mongodb');
+const uri = config.database.connection;
+const dbname = config.database.name;
 
 /* GET users listing. */
 router.get('/:id', function(req, res, next) {
 	var id = new mongo.ObjectID(req.params.id);
-	MongoClient.connect(
-		uri,
-		{ useNewUrlParser: true },
 
-		function(err, client) {
-			if (err) throw err;
-
-			var dbQuery = dbget.queryDatabase(
-				client,
-				'HonorsProject',
-				'JobSheets',
-				{
-					_id: id
-				}
-			);
-
-			Promise.all([dbQuery])
-				.then(dbQueryR => {
+	db.connect(uri).then(
+		result => {
+			db.find(result, dbname, 'JobSheets', {
+				_id: id
+			}).then(
+				result => {
 					res.render('jobsheet', {
 						title: 'OCS',
-						jobsheet: dbQueryR[0][0]
+						name: 'Job Sheet Name',
+						layout: layout.template,
+						jobsheet: result[0]
 					});
-					client.close();
-				})
-				.catch(err => {
-					throw err;
-				});
+				},
+				reason => {
+					res.send({ success: false });
+				}
+			);
+		},
+		reason => {
+			res.send({ success: false });
 		}
 	);
 });
