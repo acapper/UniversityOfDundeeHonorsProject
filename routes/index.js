@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+	console.log(req.body.id);
 	const jobsheet = req.body.jobsheet;
 	db.connect(uri).then(
 		result => {
@@ -32,7 +33,6 @@ router.post('/', function(req, res, next) {
 		},
 		reason => {
 			res.send({ success: false });
-			console.log(reason);
 		}
 	);
 });
