@@ -26,7 +26,7 @@ mixin jobsheet-section(section)
 										div
 											label.uk-form-label(for=field.name+"done")
 												| Done &nbsp;
-												input(type=field.type name=field.name+"done").uk-checkbox
+												input(type="checkbox" name=field.name+"done").uk-checkbox
 								else if field.type == "textarea"
 									textarea(type=field.type name=field.name rows=field.rows).uk-textarea
 								else if field.type == "radio"
