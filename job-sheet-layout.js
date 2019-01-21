@@ -2,6 +2,7 @@ module.exports = {
 	template: [
 		{
 			title: 'Customer Details',
+			name: 'customerdetails',
 			fields: [
 				{ name: 'name', label: 'Name', type: 'text' },
 				{ name: 'billto', label: 'Bill to', type: 'text' },
@@ -31,6 +32,7 @@ module.exports = {
 		},
 		{
 			title: 'Description of problem',
+			name: 'descriptionofproblem',
 			fields: [
 				{
 					name: 'description',
@@ -56,6 +58,7 @@ module.exports = {
 		},
 		{
 			title: 'Initial Investigation',
+			name: 'initialinvestigation',
 			fields: [
 				{
 					name: 'notes',
@@ -67,6 +70,7 @@ module.exports = {
 		},
 		{
 			title: 'Order Details',
+			name: 'orderdetails',
 			fields: [
 				{ name: 'item', label: 'Item', type: 'text' },
 				{
@@ -123,6 +127,7 @@ module.exports = {
 		},
 		{
 			title: 'Cleanup/virus check',
+			name: 'cleanupviruscheck',
 			fields: [
 				{
 					name: 'runmalwarebytes',
@@ -178,6 +183,7 @@ module.exports = {
 		},
 		{
 			title: 'New build setup',
+			name: 'newbuildsetup',
 			fields: [
 				{
 					name: 'googlechrome',
