@@ -57,14 +57,17 @@ router.post('/new', function(req, res, next) {
 	var promise = null;
 	if (id == null || id == '') {
 		console.log('New');
-		promise = dbjobsheets.new(jobsheet);
+		promise = dbjobsheets.new({
+			modified: new Date(),
+			data: jobsheet.data
+		});
 	} else {
 		console.log('Updating');
 		promise = dbjobsheets.update(
 			{
 				_id: new mongo.ObjectID(id)
 			},
-			{ $set: { data: jobsheet.data } }
+			{ $set: { modified: new Date(), data: jobsheet.data } }
 		);
 	}
 
