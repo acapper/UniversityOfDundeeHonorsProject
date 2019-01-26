@@ -46,3 +46,13 @@ exports.find = function(connection, database, collection, object) {
 			});
 	});
 };
+
+exports.update = function(connection, database, collection, query, object) {
+	return new Promise(function(resolve, reject) {
+		var dbo = connection.db(database);
+		dbo.collection(collection).updateOne(query, object, function(err, res) {
+			if (err) reject(err);
+			resolve(res);
+		});
+	});
+};
