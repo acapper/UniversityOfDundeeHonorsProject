@@ -6,16 +6,15 @@ $('button').click(function() {
 
 		var submit = true;
 		var data = new Object();
-		data.type = input.attr('type');
-		data.name = input.attr('name');
+		var type = input.attr('type');
+		var name = input.attr('name');
+		//data.name = input.attr('name');
 
-		if (data.type != 'radio') {
-			data.value = input.val();
-		}
+		if (type != 'radio' && type != 'checkbox') data.value = input.val();
 
-		if (data.type == 'checkbox') data.checked = input.is(':checked');
+		if (type == 'checkbox') data.checked = input.is(':checked');
 
-		if (data.type == 'radio') {
+		if (type == 'radio') {
 			if (input.is(':checked') == true) {
 				data.checked = input.is(':checked');
 				data.value = input.val();
@@ -24,9 +23,9 @@ $('button').click(function() {
 			}
 		}
 
-		if (data.type == 'date') data.value = new Date(data.value);
+		if (type == 'date') data.value = new Date(data.value);
 
-		if (submit) jobsheet.data[data.name] = data;
+		if (submit) jobsheet.data[name] = data;
 	});
 
 	console.log($('#id'));
@@ -34,10 +33,12 @@ $('button').click(function() {
 
 	$.ajax({
 		type: 'POST',
-		url: '/',
+		url: '/jobsheets/new',
 		dataType: 'json',
 		data: { id: $('#id').text(), jobsheet },
-		success: function() {
+		success: function(res) {
+			if (res.id != null)
+				$(location).attr('href', '/jobsheets/view/' + res.id);
 			console.log('saved');
 			$('#savemessage').removeClass('uk-hidden');
 			var date = new Date().toLocaleTimeString();
