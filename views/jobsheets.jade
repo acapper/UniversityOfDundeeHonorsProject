@@ -2,7 +2,35 @@ extends layout/layout
 
 block content
 	h1.title All jobsheets
-	ul.uk-list
-		each jobsheet in jobsheets
-			li
-				a(href='/jobsheet/'+jobsheet._id) #{jobsheet._id} #{jobsheet.data.customerdetailsname.value}
+	table.uk-table.uk-table-striped.uk-width-1-1
+		caption
+			form.uk-search.uk-search-default.uk-width-1-1
+				a(href="" uk-search-icon)
+				input.uk-search-input(type="search" placeholder="Search")
+		thead
+			tr
+				th
+					| ID
+				th
+					| Name
+				th
+					| Tags
+		tbody
+			tr.uk-placeholder.clickable(onclick="window.location='/jobsheets/new/';")
+				td
+					| Add New Job Sheet
+				td
+				td
+				td.uk-align-right.uk-margin-remove-bottom
+					a.uk-icon-link(href='/jobsheets/new/' uk-icon="icon: plus")
+			each jobsheet in jobsheets
+				- var location = "window.location='/jobsheets/view/" + jobsheet._id + "';"
+				tr.clickable(onclick=location)
+					td
+						a(href='/jobsheets/view/'+jobsheet._id) #{jobsheet._id}
+					td
+						| #{jobsheet.data.customerdetailsname.value}
+					td
+						| Tag
+					td.uk-align-right.uk-margin-remove-bottom
+						a.uk-icon-link(href='/jobsheets/delete/'+jobsheet._id uk-icon="icon: trash")
