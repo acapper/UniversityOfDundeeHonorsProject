@@ -28,21 +28,19 @@ $('button').click(function() {
 		if (submit) jobsheet.data[name] = data;
 	});
 
-	console.log($('#id'));
-	console.log(jobsheet);
-
 	$.ajax({
 		type: 'POST',
 		url: '/jobsheets/new',
 		dataType: 'json',
 		data: { id: $('#id').text(), jobsheet },
 		success: function(res) {
-			if (res.id != null)
+			if (res.id != null) {
 				$(location).attr('href', '/jobsheets/view/' + res.id);
-			console.log('saved');
-			$('#savemessage').removeClass('uk-hidden');
-			var date = new Date().toLocaleTimeString();
-			$('#savemessage').text('Saved! ' + date);
+			} else {
+				$('#savemessage').removeClass('uk-hidden');
+				var date = new Date().toLocaleTimeString();
+				$('#savemessage').text('Saved! ' + date);
+			}
 		}
 	});
 });
