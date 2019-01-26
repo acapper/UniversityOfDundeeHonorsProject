@@ -40,6 +40,7 @@ exports.find = function(connection, database, collection, object) {
 		var dbo = connection.db(database);
 		dbo.collection(collection)
 			.find(object)
+			.sort({ modified: -1 })
 			.toArray(function(err, res) {
 				if (err) reject(err);
 				resolve(res);
