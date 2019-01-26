@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/jobsheet', jobsheetRouter);
+app.use('/jobsheets', jobsheetRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
