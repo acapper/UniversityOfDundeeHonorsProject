@@ -4,17 +4,25 @@ include partials/jobsheet-section
 
 block content
 	if jobsheet != null
-		p#id.uk-hidden
-			| #{jobsheet._id}
 		h1 #{jobsheet._id}
 	else
 		h1 New Job Sheet
-	button#savebutton.uk-button-default
-		| Save
+
+	if jobsheet != null
+		button#savebutton.uk-button-default
+			| Update
+	else
+		button#savebutton.uk-button-default
+			| Save
+			
 	p#savemessage.uk-hidden
 	form#jobsheetform
 		ul(uk-accordion="multiple: true")
 			each section in layout
 				+jobsheet-section(section, jobsheet)
+	
+	if jobsheet != null
+		p#id.uk-hidden
+			| #{jobsheet._id}
 
 	script(src='/javascripts/new-job-sheet.js')
