@@ -25,10 +25,30 @@ exports.insert = function(connection, database, collection, object) {
 	});
 };
 
+exports.insertMany = function(connection, database, collection, array) {
+	return new Promise(function(resolve, reject) {
+		var dbo = connection.db(database);
+		dbo.collection(collection).insertMany(array, function(err, res) {
+			if (err) reject(err);
+			resolve(res);
+		});
+	});
+};
+
 exports.delete = function(connection, database, collection, object) {
 	return new Promise(function(resolve, reject) {
 		var dbo = connection.db(database);
 		dbo.collection(collection).deleteOne(object, function(err, res) {
+			if (err) reject(err);
+			resolve(res);
+		});
+	});
+};
+
+exports.deleteMany = function(connection, database, collection, object) {
+	return new Promise(function(resolve, reject) {
+		var dbo = connection.db(database);
+		dbo.collection(collection).deleteMany(object, function(err, res) {
 			if (err) reject(err);
 			resolve(res);
 		});
