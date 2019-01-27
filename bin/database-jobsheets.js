@@ -39,9 +39,11 @@ exports.get = function(collection, query) {
 			con => {
 				db.find(con, dbname, collection, query).then(
 					result => {
+						con.close();
 						resolve(result);
 					},
 					reason => {
+						con.close();
 						reject(reason);
 					}
 				);
@@ -59,9 +61,11 @@ exports.delete = function(collection, query) {
 			con => {
 				db.delete(con, dbname, collection, query).then(
 					result => {
+						con.close();
 						resolve(result);
 					},
 					reason => {
+						con.close();
 						reject(reason);
 					}
 				);

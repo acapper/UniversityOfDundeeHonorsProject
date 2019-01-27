@@ -17,8 +17,7 @@ describe('Database Tests', function() {
 			db.connect(uri).then(
 				result => {
 					expect(result).not.to.equal(null);
-					done();
-					result.close();
+					result.close().then(done());
 				},
 				reason => {
 					done(reason);
@@ -29,8 +28,15 @@ describe('Database Tests', function() {
 		it('Database connection should fail', function(done) {
 			db.connect('uri').then(
 				result => {
-					result.close();
-					done(new Error('Connection should not be established'));
+					result
+						.close()
+						.then(
+							done(
+								new Error(
+									'Connection should not be established'
+								)
+							)
+						);
 				},
 				reason => {
 					expect(reason).not.to.equal(null);

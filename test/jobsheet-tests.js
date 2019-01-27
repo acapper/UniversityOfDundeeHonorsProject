@@ -17,7 +17,6 @@ if (config.database.travis == false) {
 }
 
 describe('Database Jobsheet Tests', function() {
-	let con = null;
 	let objs = [
 		{
 			id: 1,
@@ -49,16 +48,22 @@ describe('Database Jobsheet Tests', function() {
 	before(done => {
 		db.connect(uri).then(
 			result => {
-				con = result;
-				db.insertMany(con, dbname, dbcollection, objs).then(done());
+				db.insertMany(result, dbname, dbcollection, objs);
+				result.close().then(done());
 			},
 			reason => done(reason)
 		);
 	});
 
 	after(done => {
-		db.deleteMany(con, dbname, dbcollection, {}).then(done());
-		con.close();
+		db.connect(uri).then(
+			result => {
+				db.deleteMany(result, dbname, dbcollection, {}).then(res =>
+					result.close().then(done())
+				);
+			},
+			reason => done(reason)
+		);
 	});
 
 	describe('Get', function() {
