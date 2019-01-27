@@ -107,4 +107,23 @@ router.get('/delete/:id', function(req, res, next) {
 		);
 });
 
+router.get('/search', function(req, res, next) {
+	var q = {
+		$text: {
+			$search: 'description',
+			$diacriticSensitive: true
+		}
+	};
+
+	dbjobsheets.get(q).then(
+		result => {
+			res.json(result);
+		},
+		reason => {
+			console.log(reason);
+			res.render('error', { message: reason });
+		}
+	);
+});
+
 module.exports = router;
