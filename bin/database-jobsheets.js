@@ -5,11 +5,11 @@ const config = require('../config');
 const uri = config.database.connection;
 const dbname = config.database.name;
 
-exports.getAll = function() {
+exports.getAll = function(collection) {
 	return new Promise(function(resolve, reject) {
 		db.connect(uri).then(
 			con => {
-				db.find(con, dbname, 'JobSheets', {}).then(
+				db.find(con, dbname, collection, {}).then(
 					result => {
 						con.close();
 						resolve(result);
@@ -27,11 +27,11 @@ exports.getAll = function() {
 	});
 };
 
-exports.get = function(query) {
+exports.get = function(collection, query) {
 	return new Promise(function(resolve, reject) {
 		db.connect(uri).then(
 			con => {
-				db.find(con, dbname, 'JobSheets', query).then(
+				db.find(con, dbname, collection, query).then(
 					result => {
 						resolve(result);
 					},
@@ -47,11 +47,11 @@ exports.get = function(query) {
 	});
 };
 
-exports.delete = function(query) {
+exports.delete = function(collection, query) {
 	return new Promise(function(resolve, reject) {
 		db.connect(uri).then(
 			con => {
-				db.delete(con, dbname, 'JobSheets', query).then(
+				db.delete(con, dbname, collection, query).then(
 					result => {
 						resolve(result);
 					},
@@ -67,11 +67,11 @@ exports.delete = function(query) {
 	});
 };
 
-exports.update = function(query, update) {
+exports.update = function(collection, query, update) {
 	return new Promise(function(resolve, reject) {
 		db.connect(uri).then(
 			con => {
-				db.update(con, dbname, 'JobSheets', query, update).then(
+				db.update(con, dbname, collection, query, update).then(
 					result => {
 						con.close();
 						resolve(result);
@@ -89,11 +89,11 @@ exports.update = function(query, update) {
 	});
 };
 
-exports.new = function(jobsheet) {
+exports.new = function(collection, jobsheet) {
 	return new Promise(function(resolve, reject) {
 		db.connect(uri).then(
 			con => {
-				db.insert(con, dbname, 'JobSheets', jobsheet).then(
+				db.insert(con, dbname, collection, jobsheet).then(
 					result => {
 						con.close();
 						resolve(result);

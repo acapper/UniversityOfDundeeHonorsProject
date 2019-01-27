@@ -8,12 +8,13 @@ const layout = require('../job-sheet-layout');
 const mongo = require('mongodb');
 const uri = config.database.connection;
 const dbname = config.database.name;
+const dbcollection = 'Jobsheets';
 const dbjobsheets = require('../bin/database-jobsheets');
 
 router.get('/view/:id', function(req, res, next) {
 	var id = new mongo.ObjectID(req.params.id);
 	dbjobsheets
-		.get({
+		.get(dbcollection, {
 			_id: id
 		})
 		.then(
@@ -33,7 +34,7 @@ router.get('/view/:id', function(req, res, next) {
 });
 
 router.get('/all', function(req, res, next) {
-	dbjobsheets.getAll().then(
+	dbjobsheets.getAll(dbcollection).then(
 		result => {
 			res.render('jobsheets', { jobsheets: result });
 		},
@@ -57,13 +58,14 @@ router.post('/new', function(req, res, next) {
 	var promise = null;
 	if (id == null || id == '') {
 		console.log('New');
-		promise = dbjobsheets.new({
+		promise = dbjobsheets.new(dbcollection, {
 			modified: new Date(),
 			data: jobsheet.data
 		});
 	} else {
 		console.log('Updating');
 		promise = dbjobsheets.update(
+			dbcollection,
 			{
 				_id: new mongo.ObjectID(id)
 			},
@@ -93,7 +95,7 @@ router.get('/delete/:id', function(req, res, next) {
 	});
 
 	dbjobsheets
-		.delete({
+		.delete(dbcollection, {
 			_id: new mongo.ObjectID(id)
 		})
 		.then(
@@ -115,7 +117,7 @@ router.get('/search', function(req, res, next) {
 		}
 	};
 
-	dbjobsheets.get(q).then(
+	dbjobsheets.get(dbcollection, q).then(
 		result => {
 			res.json(result);
 		},
