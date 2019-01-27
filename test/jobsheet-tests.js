@@ -10,7 +10,7 @@ let uri = null;
 const dbname = config.database.name;
 const dbcollection = 'Test';
 
-if (config.database.travis == false && config.database.travis != null) {
+if (config.database.travis == false) {
 	uri = config.database.connection;
 } else {
 	uri = 'mongodb://travis:test@127.0.0.1/HonorsProject';

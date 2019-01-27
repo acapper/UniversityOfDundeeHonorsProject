@@ -5,7 +5,7 @@ const db = require('../bin/database');
 const config = require('../config');
 
 let uri = null;
-if (config.database.travis == false && config.database.travis != null) {
+if (config.database.travis == false) {
 	uri = config.database.connection;
 } else {
 	uri = 'mongodb://travis:test@127.0.0.1/HonorsProject';
