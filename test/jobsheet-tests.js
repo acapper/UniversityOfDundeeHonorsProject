@@ -57,12 +57,8 @@ describe('Database Jobsheet Tests', function() {
 	});
 
 	after(done => {
-		db.connect(uri).then(
-			result => {
-				db.deleteMany(result, dbname, dbcollection, {}).then(done());
-			},
-			reason => done(reason)
-		);
+		db.deleteMany(con, dbname, dbcollection, {}).then(done());
+		con.close();
 	});
 
 	describe('Get', function() {
@@ -161,7 +157,7 @@ describe('Database Jobsheet Tests', function() {
 						done();
 					},
 					reason => {
-						done(result);
+						done(reason);
 					}
 				);
 		});
