@@ -7,5 +7,6 @@ before_script:
     - sleep 15
     - mongo HonorsProject --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
     - mongo HonorsProject --eval 'db.createCollection("Test");'
+    - mongo HonorsProject --eval 'db.getCollection('Test').createIndex({"$**":text});'
 script:
     - npm run test
