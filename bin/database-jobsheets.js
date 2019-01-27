@@ -2,8 +2,14 @@ var exports = (module.exports = {});
 
 const db = require('../bin/database');
 const config = require('../config');
-const uri = config.database.connection;
 const dbname = config.database.name;
+
+let uri = null;
+if (config.database.travis == false) {
+	uri = config.database.connection;
+} else {
+	uri = 'mongodb://travis:test@127.0.0.1/HonorsProject';
+}
 
 exports.getAll = function(collection) {
 	return new Promise(function(resolve, reject) {
