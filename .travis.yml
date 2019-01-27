@@ -4,9 +4,9 @@ node_js:
 services:
     - mongodb
 before_script:
-    - sleep 5
+    - sleep 15
     - mongo HonorsProject --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
     - mongo HonorsProject --eval 'db.createCollection("Test");'
-    - mongo HonorsProject --eval 'db.Test.createIndex({"$**":text});'
+    - mongo HonorsProject --eval 'db.Test.createIndex({"$**":"text"},{background:true});'
 script:
     - npm run test
