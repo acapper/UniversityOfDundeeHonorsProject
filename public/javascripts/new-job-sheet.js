@@ -1,4 +1,4 @@
-$('button').click(function() {
+$('#savebutton').click(function() {
 	var jobsheet = new Object();
 	jobsheet.data = {};
 	$('form#jobsheetform :input').each(function() {
