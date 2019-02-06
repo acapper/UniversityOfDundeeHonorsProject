@@ -3,19 +3,20 @@ extends layout/layout
 include partials/jobsheet-section
 
 block content
-	if jobsheet != null
-		h1 #{jobsheet._id}
-	else
-		h1 New Job Sheet
-
-	if jobsheet != null
-		button#savebutton.uk-button-default
-			| Update
-	else
-		button#savebutton.uk-button-default
-			| Save
+	.uk-clearfix.uk-flex.uk-flex-between.uk-margin-medium-bottom
+		if jobsheet != null
+			h1.uk-margin-remove #{jobsheet._id}
+		else
+			h1.uk-margin-remove New Job Sheet
+		.uk-clearfix.uk-flex.uk-flex-between
+			p#savemessage.uk-hidden.uk-margin-remove-bottom.uk-margin-medium-right.uk-padding-small
+			if jobsheet != null
+				button#savebutton.uk-button.uk-button-primary
+					| Update
+			else
+				button#savebutton.uk-button.uk-button-primary
+					| Save
 			
-	p#savemessage.uk-hidden
 	form#jobsheetform
 		ul(uk-accordion="multiple: true")
 			each section in layout
