@@ -10,3 +10,16 @@ a {
 .clickable {
 	cursor: pointer;
 }
+
+:focus {
+	border-style: dashed;
+	border-width: 2px;
+	border-color: #00b4fc;
+}
+
+button:focus {
+	background: #00b7ff;
+	border-style: dashed;
+	border-width: 3px;
+	border-color: #ffffff;
+}
