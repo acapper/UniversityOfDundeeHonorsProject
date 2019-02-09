@@ -1,8 +1,9 @@
 
 include order-part
-include inputs
+include site-visit
+include form-controls
 
-mixin jobsheet-section(section, jobsheet)
+mixin jobsheet-section(section, jobsheet, partlayout, sitevisit)
 	li
 		a.uk-accordion-title(href="#")
 			if section.title != null
@@ -20,27 +21,17 @@ mixin jobsheet-section(section, jobsheet)
 							- var value = input.value
 						.div.uk-margin
 							if field.type == "partadd"
-								+addpart(partlayout)
+								if jobsheet != null
+									+addpart(partlayout, jobsheet.data.parts)
+								else
+									+addpart(partlayout, null)
+							else if field.type == "sitevisit"
+								if jobsheet != null
+									+addsitevisit(sitevisitlayout, jobsheet.data.sitevisits)
+								else
+									+addsitevisit(sitevisitlayout, null)
 							else
-								label.uk-form-label(for=elementname)
-									| #{field.label}
-								div.uk-form-controls
-									if field.type == "text" || field.type == "password" || field.type == "time" || field.type == "number"
-										input(type=field.type name=elementname value=value).uk-input
-									else if field.type == "date"
-										- var date = moment(new Date(value)).format('YYYY-MM-DD')
-										input(type=field.type name=elementname value=date).uk-input
-									else if field.type == "checkbox"
-										+checkbox(input, elementname)
-									else if field.type == "confirmcheckbox"
-										+confirmcheckboxgroup(jobsheet, elementname)
-									else if field.type == "textarea"
-										textarea(type=field.type name=elementname rows=field.rows).uk-textarea
-											| #{value}
-									else if field.type == "radio"
-										+radio(field, elementname, input)
-									else
-										p Unhandled type
+								+controls(elementname, field, input, value)
 
 				else
 					p No fields in layout
