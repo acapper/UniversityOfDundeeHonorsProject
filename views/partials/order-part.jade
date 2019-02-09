@@ -1,43 +1,26 @@
-include inputs
+include form-controls
 
-mixin addpart(jobsheet)
-	ul#partlist(uk-accordion="multiple: true")
+mixin addpart(partlayout, parts)
+	ul#partlist(uk-accordion="multiple: true").nested-accordion
+		if(parts != null)
+			each part in parts
+				each section in partlayout
+					+newpart(section, part)
 	button(type="button").add-part.uk-button.uk-button-primary Add Part
 
 mixin newpart(partlayout, part)
-	li.uk-margin-medium-left
-		- var r = partlayout.name + Math.random(10);
+	li.uk-margin-medium-left.part
 		a.uk-accordion-title(href="#")
-			if partlayout.name != null
-				| #{r}
-			else
-				| Default Title 
+			| New Part
 		.uk-accordion-content
-			.form.uk-form-horizontal
+			.form.uk-form-horizontal.uk-clearfix
 				each field in partlayout.fields
-					- var elementname = r+field.name
+					- var elementname = field.name
 					if part != null
 						- var input = part.data[elementname]
 					if input != null 
 						- var value = input.value
 					.div.uk-margin
-						label.uk-form-label(for=elementname)
-							| #{field.label}
-						div.uk-form-controls
-							if field.type == "text" || field.type == "password" || field.type == "time" || field.type == "number"
-								input(type=field.type name=elementname value=value).uk-input
-							else if field.type == "date"
-								- var date = moment(new Date(value)).format('YYYY-MM-DD')
-								input(type=field.type name=elementname value=date).uk-input
-							else if field.type == "checkbox"
-								+checkbox(input, elementname)
-							else if field.type == "confirmcheckbox"
-								+confirmcheckboxgroup(jobsheet, elementname)
-							else if field.type == "textarea"
-								textarea(type=field.type name=elementname rows=field.rows).uk-textarea
-									| #{value}
-							else if field.type == "radio"
-								+radio(field, elementname, input)
-							else
-								p Unhandled type
+						+controls(elementname, field, input, value)
+			button.uk-button.uk-button-danger.uk-float-right Delete
 
