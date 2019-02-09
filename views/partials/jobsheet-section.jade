@@ -1,3 +1,7 @@
+
+include order-part
+include inputs
+
 mixin jobsheet-section(section, jobsheet)
 	li
 		a.uk-accordion-title(href="#")
@@ -5,7 +9,7 @@ mixin jobsheet-section(section, jobsheet)
 				| #{section.title}
 			else
 				| Default Title 
-		div.uk-accordion-content
+		section(id=section.title).uk-accordion-content
 			.form.uk-form-horizontal
 				if section.fields != null && section.fields.length != 0
 					each field in section.fields
@@ -15,56 +19,28 @@ mixin jobsheet-section(section, jobsheet)
 						if input != null 
 							- var value = input.value
 						.div.uk-margin
-							label.uk-form-label(for=elementname)
-								| #{field.label}
-							div.uk-form-controls
-								if field.type == "text" || field.type == "password" || field.type == "time" || field.type == "number"
-									input(type=field.type name=elementname value=value).uk-input
-								else if field.type == "date"
-									- var date = moment(new Date(value)).format('YYYY-MM-DD')
-									input(type=field.type name=elementname value=date).uk-input
-								else if field.type == "checkbox"
-									+checkbox(input, elementname)
-								else if field.type == "confirmcheckbox"
-									+confirmcheckboxgroup(jobsheet, elementname)
-								else if field.type == "textarea"
-									textarea(type=field.type name=elementname rows=field.rows).uk-textarea
-										| #{value}
-								else if field.type == "radio"
-									+radio(field, elementname, input)
-								else
-									p Unhandled type
+							if field.type == "partadd"
+								+addpart(partlayout)
+							else
+								label.uk-form-label(for=elementname)
+									| #{field.label}
+								div.uk-form-controls
+									if field.type == "text" || field.type == "password" || field.type == "time" || field.type == "number"
+										input(type=field.type name=elementname value=value).uk-input
+									else if field.type == "date"
+										- var date = moment(new Date(value)).format('YYYY-MM-DD')
+										input(type=field.type name=elementname value=date).uk-input
+									else if field.type == "checkbox"
+										+checkbox(input, elementname)
+									else if field.type == "confirmcheckbox"
+										+confirmcheckboxgroup(jobsheet, elementname)
+									else if field.type == "textarea"
+										textarea(type=field.type name=elementname rows=field.rows).uk-textarea
+											| #{value}
+									else if field.type == "radio"
+										+radio(field, elementname, input)
+									else
+										p Unhandled type
 
 				else
 					p No fields in layout
-
-mixin checkbox(input, name)
-	if input != null && input.checked == "true"
-		input(type="checkbox" name=name checked).uk-checkbox
-	else
-		input(type="checkbox" name=name).uk-checkbox
-
-mixin confirmcheckboxgroup(jobsheet, name)
-	div(uk-grid)
-		+confirmcheckbox(jobsheet, name, "required", "Required")
-		+confirmcheckbox(jobsheet, name, "done", "Done")
-
-mixin confirmcheckbox(jobsheet, name, typestring, display)
-	div.uk-text-center
-		- var type = name+typestring
-		label.uk-form-label(for=type)
-			| #{display} &nbsp;
-			if jobsheet != null
-				+checkbox(jobsheet.data[type], type)
-			else
-				+checkbox(null, type)
-
-mixin radio(field, name, input)
-	ul.uk-list.uk-margin-remove
-		each radio in field.options
-			li
-				span #{radio.label} &nbsp;
-					if input != null && input.value == radio.value
-						input(type=field.type name=name value=radio.value checked).uk-radio
-					else
-						input(type=field.type name=name value=radio.value).uk-radio
