@@ -5,12 +5,12 @@ mixin checkbox(input, name)
 		input(type="checkbox" name=name).uk-checkbox
 
 mixin confirmcheckboxgroup(jobsheet, name)
-	div(uk-grid)
+	.uk-flex.uk-flex-center
 		+confirmcheckbox(jobsheet, name, "required", "Required")
 		+confirmcheckbox(jobsheet, name, "done", "Done")
 
 mixin confirmcheckbox(jobsheet, name, typestring, display)
-	div.uk-text-center
+	div.uk-text-center.uk-margin-medium-right.uk-margin-medium-left
 		- var type = name+typestring
 		label.uk-form-label(for=type)
 			| #{display} &nbsp;
@@ -20,11 +20,10 @@ mixin confirmcheckbox(jobsheet, name, typestring, display)
 				+checkbox(null, type)
 
 mixin radio(field, name, input)
-	ul.uk-list.uk-margin-remove
+	.uk-flex.uk-flex-between.uk-margin-small-right.uk-margin-small-left
 		each radio in field.options
-			li
-				span #{radio.label} &nbsp;
-					if input != null && input.value == radio.value
-						input(type=field.type name=name value=radio.value checked).uk-radio
-					else
-						input(type=field.type name=name value=radio.value).uk-radio
+			span #{radio.label} &nbsp;
+				if input != null && input.value == radio.value
+					input(type=field.type name=name value=radio.value checked).uk-radio
+				else
+					input(type=field.type name=name value=radio.value).uk-radio
