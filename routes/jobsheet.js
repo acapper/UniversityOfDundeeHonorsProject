@@ -4,6 +4,7 @@ const config = require('../config');
 const db = require('../bin/database');
 
 const layout = require('../job-sheet-layout');
+const partlayout = require('../part-layout');
 
 const mongo = require('mongodb');
 const uri = config.database.connection;
@@ -23,7 +24,8 @@ router.get('/view/:id', function(req, res, next) {
 					title: 'OCS',
 					name: 'Job Sheet Name',
 					layout: layout.template,
-					jobsheet: result[0]
+					jobsheet: result[0],
+					partlayout
 				});
 			},
 			reason => {
@@ -126,6 +128,13 @@ router.get('/search', function(req, res, next) {
 			res.render('error', { message: reason });
 		}
 	);
+});
+
+router.get('/part', function(req, res, next) {
+	res.render('partials/part', {
+		title: 'OCS',
+		partlayout: partlayout.template
+	});
 });
 
 module.exports = router;
