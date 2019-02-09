@@ -69,6 +69,17 @@ module.exports = {
 			]
 		},
 		{
+			title: 'Site Visits',
+			name: 'sitevisit',
+			fields: [
+				{
+					name: 'sitevisit',
+					label: 'Add Site Visit',
+					type: 'sitevisit'
+				}
+			]
+		},
+		{
 			title: 'Parts',
 			name: 'parts',
 			fields: [
