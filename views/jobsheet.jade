@@ -15,7 +15,7 @@ block content
 			form#jobsheetform
 				ul(uk-accordion="multiple: true")
 					each section in layout
-						+jobsheet-section(section, jobsheet, partlayout)
+						+jobsheet-section(section, jobsheet, partlayout, sitevisitlayout)
 		
 	if jobsheet != null
 		p#id.uk-hidden
