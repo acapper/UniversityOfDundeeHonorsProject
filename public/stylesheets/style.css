@@ -23,3 +23,26 @@ button:focus {
 	border-width: 3px;
 	border-color: #ffffff;
 }
+
+.uk-nav {
+	background-color: #f8f8f8;
+	padding: 20px !important;
+}
+
+.uk-accordion > li {
+	background-color: #f8f8f8;
+	padding: 20px;
+}
+
+.nested-accordion > li {
+	background-color: white;
+	padding: 20px;
+}
+
+.uk-checkbox:not(:checked) {
+	background-color: white !important;
+}
+
+.uk-radio {
+	background-color: white !important;
+}
