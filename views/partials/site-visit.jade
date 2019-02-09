@@ -1,0 +1,26 @@
+
+include form-controls
+
+mixin addsitevisit(sitevisitlayout, sitevisits)
+	ul#sitelist(uk-accordion="multiple: true").nested-accordion
+		if(sitevisits != null)
+			each visit in sitevisits
+				each section in sitevisitlayout
+					+newsitevisit(section, visit)
+	button(type="button").add-sitevisit.uk-button.uk-button-primary Add Site Visit
+
+mixin newsitevisit(sitevisitlayout, site)
+	li.uk-margin-medium-left.visit
+		a.uk-accordion-title(href="#")
+			| New Site Visit
+		.uk-accordion-content
+			.form.uk-form-horizontal.uk-clearfix
+				each field in sitevisitlayout.fields
+					- var elementname = field.name
+					if site != null
+						- var input = site.data[elementname]
+					if input != null 
+						- var value = input.value
+					.div.uk-margin
+						+controls(elementname, field, input, value)
+			button.uk-button.uk-button-danger.uk-float-right Delete
