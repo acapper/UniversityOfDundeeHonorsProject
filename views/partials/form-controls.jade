@@ -1,0 +1,22 @@
+include inputs 
+
+mixin controls(elementname, field, input, value)
+	label.uk-form-label(for=elementname)
+		| #{field.label}
+	div.uk-form-controls
+		if field.type == "text" || field.type == "password" || field.type == "time" || field.type == "number"
+			input(type=field.type name=elementname value=value).uk-input
+		else if field.type == "date"
+			- var date = moment(new Date(value)).format('YYYY-MM-DD')
+			input(type=field.type name=elementname value=date).uk-input
+		else if field.type == "checkbox"
+			+checkbox(input, elementname)
+		else if field.type == "confirmcheckbox"
+			+confirmcheckboxgroup(jobsheet, elementname)
+		else if field.type == "textarea"
+			textarea(type=field.type name=elementname rows=field.rows).uk-textarea
+				| #{value}
+		else if field.type == "radio"
+			+radio(field, elementname, input)
+		else
+			p Unhandled type
