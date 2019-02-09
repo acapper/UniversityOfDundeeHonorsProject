@@ -1,29 +1,24 @@
 extends layout/layout
 
 include partials/jobsheet-section
+include partials/jobsheet-sidenav
 
 block content
-	.uk-clearfix.uk-flex.uk-flex-between.uk-margin-medium-bottom
-		if jobsheet != null
-			h1.uk-margin-remove #{jobsheet._id}
-		else
-			h1.uk-margin-remove New Job Sheet
-		.uk-clearfix.uk-flex.uk-flex-between
-			p#savemessage.uk-hidden.uk-margin-remove-bottom.uk-margin-medium-right.uk-padding-small
+	.uk-grid-large(uk-grid)
+		+sidenav(jobsheet)
+		div(class="uk-width-expand@m")
 			if jobsheet != null
-				button#savebutton.uk-button.uk-button-primary
-					| Update
+				h1 #{jobsheet._id}
 			else
-				button#savebutton.uk-button.uk-button-primary
-					| Save
-			
-	form#jobsheetform
-		ul(uk-accordion="multiple: true")
-			each section in layout
-				+jobsheet-section(section, jobsheet)
-	
+				h1 New Job Sheet
+					
+			form#jobsheetform
+				ul(uk-accordion="multiple: true")
+					each section in layout
+						+jobsheet-section(section, jobsheet, partlayout)
+		
 	if jobsheet != null
 		p#id.uk-hidden
 			| #{jobsheet._id}
 
-	script(src='/javascripts/new-job-sheet.js')
+	script(src='/javascripts/job-sheet.js')
