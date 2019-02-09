@@ -5,6 +5,7 @@ const db = require('../bin/database');
 
 const layout = require('../job-sheet-layout');
 const partlayout = require('../part-layout');
+const sitevisitlayout = require('../sitevisit-layout');
 
 const mongo = require('mongodb');
 const uri = config.database.connection;
@@ -25,7 +26,8 @@ router.get('/view/:id', function(req, res, next) {
 					name: 'Job Sheet Name',
 					layout: layout.template,
 					jobsheet: result[0],
-					partlayout
+					partlayout: partlayout.template,
+					sitevisitlayout: sitevisitlayout.template
 				});
 			},
 			reason => {
@@ -77,6 +79,7 @@ router.post('/new', function(req, res, next) {
 
 	promise.then(
 		result => {
+			console.log('Success');
 			if (id == null || id == '') {
 				res.send({ success: true, id: result.ops[0]._id });
 			} else {
@@ -84,6 +87,8 @@ router.post('/new', function(req, res, next) {
 			}
 		},
 		reason => {
+			console.log('Fail');
+			console.log(reason);
 			res.render('error', { message: reason });
 		}
 	);
@@ -134,6 +139,13 @@ router.get('/part', function(req, res, next) {
 	res.render('partials/part', {
 		title: 'OCS',
 		partlayout: partlayout.template
+	});
+});
+
+router.get('/sitevisit', function(req, res, next) {
+	res.render('partials/site', {
+		title: 'OCS',
+		sitevisitlayout: sitevisitlayout.template
 	});
 });
 
