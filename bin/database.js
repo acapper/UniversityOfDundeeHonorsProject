@@ -4,14 +4,10 @@ var exports = (module.exports = {});
 
 exports.connect = function(uri) {
 	return new Promise(function(resolve, reject) {
-		MongoClient.connect(
-			uri,
-			{ useNewUrlParser: true },
-			function(err, res) {
-				if (err) reject(err);
-				resolve(res);
-			}
-		);
+		MongoClient.connect(uri, { useNewUrlParser: true }, function(err, res) {
+			if (err) reject(err);
+			resolve(res);
+		});
 	});
 };
 
