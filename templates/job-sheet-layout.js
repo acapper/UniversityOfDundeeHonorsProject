@@ -4,29 +4,48 @@ module.exports = {
 			title: 'Customer Details',
 			name: 'customerdetails',
 			fields: [
-				{ name: 'name', label: 'Name', type: 'text' },
-				{ name: 'billto', label: 'Bill to', type: 'text' },
-				{ name: 'telephone', label: 'Telephone', type: 'text' },
-				{ name: 'mobile', label: 'Mobile', type: 'text' },
+				{ name: 'name', label: 'Name', type: 'text', required: true },
+				{
+					name: 'billto',
+					label: 'Bill to',
+					type: 'text',
+					required: false
+				},
+				{
+					name: 'telephone',
+					label: 'Telephone',
+					type: 'text',
+					required: false
+				},
+				{
+					name: 'mobile',
+					label: 'Mobile',
+					type: 'text',
+					required: false
+				},
 				{
 					name: 'onsitevisit',
 					label: 'Onsite Visit',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'remote',
 					label: 'Remote',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'date',
 					label: 'Date',
-					type: 'date'
+					type: 'date',
+					required: false
 				},
 				{
 					name: 'time',
 					label: 'Time',
-					type: 'time'
+					type: 'time',
+					required: false
 				}
 			]
 		},
@@ -38,21 +57,34 @@ module.exports = {
 					name: 'description',
 					label: 'Description',
 					type: 'textarea',
-					rows: '5'
+					rows: '5',
+					required: false
 				},
-				{ name: 'make', label: 'Make', type: 'text' },
-				{ name: 'model', label: 'Model', type: 'text' },
-				{ name: 'user', label: 'User', type: 'text' },
-				{ name: 'password', label: 'Password', type: 'text' },
+				{ name: 'make', label: 'Make', type: 'text', required: false },
+				{
+					name: 'model',
+					label: 'Model',
+					type: 'text',
+					required: false
+				},
+				{ name: 'user', label: 'User', type: 'text', required: false },
+				{
+					name: 'password',
+					label: 'Password',
+					type: 'text',
+					required: false
+				},
 				{
 					name: 'charger',
 					label: 'Charger',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'bag',
 					label: 'Bag',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				}
 			]
 		},
@@ -64,7 +96,8 @@ module.exports = {
 					name: 'notes',
 					label: 'Notes',
 					type: 'textarea',
-					rows: '5'
+					rows: '5',
+					required: false
 				}
 			]
 		},
@@ -75,7 +108,8 @@ module.exports = {
 				{
 					name: 'sitevisit',
 					label: 'Add Site Visit',
-					type: 'sitevisit'
+					type: 'sitevisit',
+					required: false
 				}
 			]
 		},
@@ -86,7 +120,8 @@ module.exports = {
 				{
 					name: 'partadd',
 					label: 'Add Part',
-					type: 'partadd'
+					type: 'partadd',
+					required: false
 				}
 			]
 		},
@@ -97,17 +132,20 @@ module.exports = {
 				{
 					name: 'invoicenumber',
 					label: 'Invoice Number',
-					type: 'number'
+					type: 'number',
+					required: false
 				},
 				{
 					name: 'invoiceamout',
 					label: 'Invoice Amount',
-					type: 'number'
+					type: 'number',
+					required: false
 				},
 				{
 					name: 'invoicesent',
 					label: 'Invoice Sent',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'payment',
@@ -118,12 +156,14 @@ module.exports = {
 						{ value: 'chq', label: 'CHQ' },
 						{ value: 'pos', label: 'POS' },
 						{ value: 'bacs', label: 'BACS' }
-					]
+					],
+					required: false
 				},
 				{
 					name: 'reconcilereference',
 					label: 'Reconcile Reference',
-					type: 'text'
+					type: 'text',
+					required: false
 				}
 			]
 		},
@@ -134,52 +174,62 @@ module.exports = {
 				{
 					name: 'runmalwarebytes',
 					label: 'Run Malwarebytes',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'runccleaner',
 					label: 'Run Ccleaner',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'runhitman',
 					label: 'Run Hitman',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'adwcleaner',
 					label: 'AdwCleaner',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'spybot',
 					label: 'Spybot',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'installteamviewer',
 					label: 'Install Teamviewer',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'installmsupdates',
 					label: 'Install MS updates',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'installcheckavast',
 					label: 'Install/check Avast',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'installclassicshell',
 					label: 'Install Classic Shell',
-					type: 'checkbox'
+					type: 'checkbox',
+					required: false
 				},
 				{
 					name: 'recovereddatalocation',
 					label: 'Recovered data location',
-					type: 'text'
+					type: 'text',
+					required: false
 				}
 			]
 		},
@@ -190,77 +240,92 @@ module.exports = {
 				{
 					name: 'googlechrome',
 					label: 'Google Chrome',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'googlebackupsync',
 					label: 'Google backup & sync',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'avastfreeantivirus',
 					label: 'Avast Free antivirus',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'ccleaner',
 					label: 'Ccleaner',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'malwarebytes',
 					label: 'Malwarebytes',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'java',
 					label: 'Java',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'adobereader',
 					label: 'Adobe Reader',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'windowsupdates',
 					label: 'Windows Updates',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'teamviewerquicksupport',
 					label: 'Team Viewer Quick Support',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'openofficelibreoffice',
 					label: 'Open Office/Libre Office',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'emailclient',
 					label: 'Email Client',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'customerdata',
 					label: 'Customer Data',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'printer',
 					label: 'Printer',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'camerasoftware',
 					label: 'Camera software',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				},
 				{
 					name: 'sagepayroll',
 					label: 'Sage/Payroll',
-					type: 'confirmcheckbox'
+					type: 'confirmcheckbox',
+					required: false
 				}
 			]
 		}
