@@ -24,12 +24,6 @@ module.exports = {
 					required: false
 				},
 				{
-					name: 'onsitevisit',
-					label: 'Onsite Visit',
-					type: 'checkbox',
-					required: false
-				},
-				{
 					name: 'remote',
 					label: 'Remote',
 					type: 'checkbox',
@@ -60,6 +54,60 @@ module.exports = {
 					rows: '5',
 					required: false
 				},
+				{
+					name: 'problem',
+					label: 'Problem',
+					type: 'radio',
+					options: [
+						{ value: 'clean', label: 'System cleanup/healthcheck' },
+						{
+							value: 'scam',
+							label: 'System healthcheck after scam'
+						},
+						{
+							value: 'sysrebuildsave',
+							label: 'System rebuild - save data'
+						},
+						{
+							value: 'sysrebuildnosave',
+							label: "System rebuild - don't save data"
+						},
+						{
+							value: 'newbuilddata',
+							label: 'New build - transfer data'
+						},
+						{
+							value: 'newbuildnodata',
+							label: 'New build - no data'
+						},
+						{
+							value: 'repscreen',
+							label: 'Replacement screen'
+						},
+						{
+							value: 'repdcjack',
+							label: 'Replacement DC jack'
+						},
+						{
+							value: 'other',
+							label: 'Other'
+						}
+					],
+					required: false
+				},
+				{
+					name: 'equipment',
+					label: 'Equipment',
+					type: 'radio',
+					options: [
+						{ value: 'apple', label: 'Apple Device' },
+						{ value: 'laptop', label: 'Laptop' },
+						{ value: 'desktop', label: 'Desktop' },
+						{ value: 'tablet', label: 'Tablet' },
+						{ value: 'other', label: 'Other' }
+					],
+					required: false
+				},
 				{ name: 'make', label: 'Make', type: 'text', required: false },
 				{
 					name: 'model',
@@ -67,7 +115,12 @@ module.exports = {
 					type: 'text',
 					required: false
 				},
-				{ name: 'user', label: 'User', type: 'text', required: false },
+				{
+					name: 'logonid',
+					label: 'Logon ID',
+					type: 'text',
+					required: false
+				},
 				{
 					name: 'password',
 					label: 'Password',
@@ -142,6 +195,18 @@ module.exports = {
 					required: false
 				},
 				{
+					name: 'markup',
+					label: 'Invoice Markup',
+					type: 'number',
+					required: false
+				},
+				{
+					name: 'percentmarkup',
+					label: 'Invoice Percent Markup',
+					type: 'number',
+					required: false
+				},
+				{
 					name: 'invoicesent',
 					label: 'Invoice Sent',
 					type: 'checkbox',
@@ -202,26 +267,14 @@ module.exports = {
 					required: false
 				},
 				{
-					name: 'installteamviewer',
-					label: 'Install Teamviewer',
+					name: 'installmsupdates',
+					label: 'Check MS updates',
 					type: 'checkbox',
 					required: false
 				},
 				{
 					name: 'installmsupdates',
-					label: 'Install MS updates',
-					type: 'checkbox',
-					required: false
-				},
-				{
-					name: 'installcheckavast',
-					label: 'Install/check Avast',
-					type: 'checkbox',
-					required: false
-				},
-				{
-					name: 'installclassicshell',
-					label: 'Install Classic Shell',
+					label: 'Check Antivirus',
 					type: 'checkbox',
 					required: false
 				},
@@ -250,8 +303,8 @@ module.exports = {
 					required: false
 				},
 				{
-					name: 'avastfreeantivirus',
-					label: 'Avast Free antivirus',
+					name: 'installcheckavast',
+					label: 'Install/check Avast',
 					type: 'confirmcheckbox',
 					required: false
 				},
@@ -286,6 +339,18 @@ module.exports = {
 					required: false
 				},
 				{
+					name: 'installclassicshell',
+					label: 'Install Classic Shell',
+					type: 'confirmcheckbox',
+					required: false
+				},
+				{
+					name: 'installteamviewer',
+					label: 'Install Teamviewer',
+					type: 'confirmcheckbox',
+					required: false
+				},
+				{
 					name: 'teamviewerquicksupport',
 					label: 'Team Viewer Quick Support',
 					type: 'confirmcheckbox',
@@ -312,12 +377,6 @@ module.exports = {
 				{
 					name: 'printer',
 					label: 'Printer',
-					type: 'confirmcheckbox',
-					required: false
-				},
-				{
-					name: 'camerasoftware',
-					label: 'Camera software',
 					type: 'confirmcheckbox',
 					required: false
 				},

@@ -5,8 +5,8 @@ module.exports = {
 			fields: [
 				{ name: 'item', label: 'Item', type: 'text' },
 				{
-					name: 'date',
-					label: 'Date',
+					name: 'datepurchased',
+					label: 'Date Purchased',
 					type: 'date'
 				},
 				{
@@ -22,6 +22,16 @@ module.exports = {
 				{ name: 'other', label: 'Other', type: 'text' },
 				{ name: 'costprice', label: 'Cost Price', type: 'number' },
 				{ name: 'postage', label: 'Postage', type: 'number' },
+				{
+					name: 'addionalfixed',
+					label: 'Fixed Markup',
+					type: 'number'
+				},
+				{
+					name: 'addionalpercent',
+					label: 'Percent Markup',
+					type: 'number'
+				},
 				{ name: 'saleprice', label: 'Sale Price', type: 'number' }
 			]
 		}
