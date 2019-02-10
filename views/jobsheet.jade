@@ -4,15 +4,19 @@ include partials/jobsheet-section
 include partials/jobsheet-sidenav
 
 block content
-	.uk-grid-large(uk-grid)
-		+sidenav(jobsheet)
-		div(class="uk-width-expand@m")
-			if jobsheet != null
-				h1 #{jobsheet._id}
-			else
-				h1 New Job Sheet
-					
-			form#jobsheetform
+	.uk-grid-large(uk-grid).uk-margin-small-bottom
+		.uk-invisible(class="uk-width-1-4@m")
+		if jobsheet != null
+			- var date = moment(new Date(jobsheet.created)).format('MMM Do YYYY')
+			h1 #{jobsheet.data.customerdetailsname.value} (#{date})
+		else
+			h1 New Job Sheet
+			
+	form#jobsheetform
+		.uk-grid-large(uk-grid)
+			+sidenav(jobsheet)
+			
+			div(class="uk-width-expand@m")
 				ul(uk-accordion="multiple: true")
 					each section in layout
 						+jobsheet-section(section, jobsheet, partlayout, sitevisitlayout)
