@@ -387,6 +387,19 @@ module.exports = {
 					required: false
 				}
 			]
+		},
+		{
+			title: 'Notes',
+			name: 'notes',
+			fields: [
+				{
+					name: 'notes',
+					label: 'Notes',
+					type: 'textarea',
+					rows: '5',
+					required: false
+				}
+			]
 		}
 	]
 };
