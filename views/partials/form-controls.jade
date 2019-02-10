@@ -5,17 +5,27 @@ mixin controls(elementname, field, input, value)
 		| #{field.label}
 	div.uk-form-controls
 		if field.type == "text" || field.type == "password" || field.type == "time" || field.type == "number"
-			input(type=field.type name=elementname value=value).uk-input
+			if field.required == true
+				input(type=field.type name=elementname value=value required).uk-input
+			else
+				input(type=field.type name=elementname value=value).uk-input
 		else if field.type == "date"
 			- var date = moment(new Date(value)).format('YYYY-MM-DD')
-			input(type=field.type name=elementname value=date).uk-input
+			if field.required == true
+				input(type=field.type name=elementname value=date required).uk-input
+			else
+				input(type=field.type name=elementname value=date).uk-input
 		else if field.type == "checkbox"
 			+checkbox(input, elementname)
 		else if field.type == "confirmcheckbox"
-			+confirmcheckboxgroup(jobsheet, elementname)
+			+confirmcheckboxgroup(field.required, jobsheet, elementname)
 		else if field.type == "textarea"
-			textarea(type=field.type name=elementname rows=field.rows).uk-textarea
-				| #{value}
+			if field.required == true
+				textarea(type=field.type name=elementname rows=field.rows required).uk-textarea
+					| #{value}
+			else
+				textarea(type=field.type name=elementname rows=field.rows).uk-textarea
+					| #{value}
 		else if field.type == "radio"
 			+radio(field, elementname, input)
 		else

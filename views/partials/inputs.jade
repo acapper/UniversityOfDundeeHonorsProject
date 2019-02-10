@@ -1,29 +1,41 @@
-mixin checkbox(input, name)
+mixin checkbox(required, input, name)
 	if input != null && input.checked == "true"
-		input(type="checkbox" name=name checked).uk-checkbox
+		if required == true
+			input(type="checkbox" name=name checked required).uk-checkbox
+		else
+			input(type="checkbox" name=name checked).uk-checkbox
 	else
-		input(type="checkbox" name=name).uk-checkbox
+		if required == true
+			input(type="checkbox" name=name required).uk-checkbox
+		else
+			input(type="checkbox" name=name).uk-checkbox
 
-mixin confirmcheckboxgroup(jobsheet, name)
+mixin confirmcheckboxgroup(required, jobsheet, name)
 	.uk-flex.uk-flex-center
-		+confirmcheckbox(jobsheet, name, "required", "Required")
-		+confirmcheckbox(jobsheet, name, "done", "Done")
+		+confirmcheckbox(required, jobsheet, name, "required", "Required")
+		+confirmcheckbox(required, jobsheet, name, "done", "Done")
 
-mixin confirmcheckbox(jobsheet, name, typestring, display)
+mixin confirmcheckbox(required, jobsheet, name, typestring, display)
 	div.uk-text-center.uk-margin-medium-right.uk-margin-medium-left
 		- var type = name+typestring
 		label.uk-form-label(for=type)
 			| #{display} &nbsp;
 			if jobsheet != null
-				+checkbox(jobsheet.data[type], type)
+				+checkbox(required, jobsheet.data[type], type)
 			else
-				+checkbox(null, type)
+				+checkbox(required, null, type)
 
 mixin radio(field, name, input)
 	.uk-flex.uk-flex-between.uk-margin-small-right.uk-margin-small-left
 		each radio in field.options
 			span #{radio.label} &nbsp;
 				if input != null && input.value == radio.value
-					input(type=field.type name=name value=radio.value checked).uk-radio
+					if field.required == true
+						input(type=field.type name=name value=radio.value checked required).uk-radio
+					else
+						input(type=field.type name=name value=radio.value checked).uk-radio
 				else
-					input(type=field.type name=name value=radio.value).uk-radio
+					if field.required == true
+						input(type=field.type name=name value=radio.value required).uk-radio
+					else
+						input(type=field.type name=name value=radio.value).uk-radio
