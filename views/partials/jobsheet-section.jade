@@ -5,12 +5,13 @@ include form-controls
 
 mixin jobsheet-section(section, jobsheet, partlayout, sitevisit)
 	li
-		a.uk-accordion-title(href="#")
-			if section.title != null
-				| #{section.title}
-			else
-				| Default Title 
-		section(id=section.title).uk-accordion-content
+		section(id=section.title).uk-accordion-title
+			a.uk-link-heading(href="#")
+				if section.title != null
+					| #{section.title}
+				else
+					| Default Title 
+		.uk-accordion-content
 			.form.uk-form-horizontal
 				if section.fields != null && section.fields.length != 0
 					each field in section.fields
