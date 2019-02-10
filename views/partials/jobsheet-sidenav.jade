@@ -1,6 +1,6 @@
 mixin sidenav(jobsheet)
 	div(class="uk-width-1-4@m uk-visible@m")
-		ul.uk-nav.uk-nav-default.uk-margin-large-top(uk-nav uk-sticky)
+		ul.uk-nav.uk-nav-default(uk-nav uk-sticky="offset: 60")
 			li.uk-margin-small-top
 				label.uk-form-label(for="staffassign")
 					| Assign Staff
@@ -10,7 +10,17 @@ mixin sidenav(jobsheet)
 			li.uk-margin-small-top
 				label.uk-form-label(for="duedate")
 					| Due Date
-				input(type="date" name="duedate" value=date).uk-input
+				if jobsheet != null
+					- var date = moment(new Date(jobsheet.data["duedate"].value)).format('YYYY-MM-DD')
+					input(type="date" name="duedate" value=date required).uk-input
+				else
+					input(type="date" name="duedate" value=date required).uk-input
+			if jobsheet != null
+				li.uk-margin-small-top
+					label.uk-form-label(for="createddate")
+						| Created On
+					- var date = moment(new Date(jobsheet.created)).format('YYYY-MM-DD')
+					input(type="date" name="createddate" value=date readonly disabled ).uk-input
 			li.uk-margin-small-top.uk-nav-center
 				+savebutton(jobsheet)
 			li.uk-margin-small-top.uk-nav-center
@@ -25,8 +35,8 @@ mixin sidenav(jobsheet)
 
 mixin savebutton(jobsheet)
 	if jobsheet != null
-		button.save-button.uk-button.uk-button-primary
+		button.save-button.uk-button.uk-button-primary(submit="submit")
 			| Update
 	else
-		button.save-button.uk-button.uk-button-primary
+		button.save-button.uk-button.uk-button-primary(submit="submit")
 			| Save
