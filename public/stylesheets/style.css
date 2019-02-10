@@ -43,7 +43,7 @@ button:focus {
 	background-color: white !important;
 }
 
-.uk-radio {
+.uk-radio:not(:checked) {
 	background-color: white !important;
 }
 
