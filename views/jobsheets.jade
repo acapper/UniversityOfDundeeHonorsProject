@@ -14,6 +14,8 @@ block content
 				th
 					| Name
 				th
+					| Created
+				th
 					| Modified
 				th
 					| Tags
@@ -24,16 +26,20 @@ block content
 				td
 				td
 				td
+				td
 				td.uk-align-right.uk-margin-remove-bottom
 					a.uk-icon-link(href='/jobsheets/new/' uk-icon="icon: plus")
 			each jobsheet in jobsheets
 				- var location = "window.location='/jobsheets/view/" + jobsheet._id + "';"
 				- var modified = moment(jobsheet.modified, "YYYYMMDD").fromNow();
+				- var date = moment(new Date(jobsheet.created)).format('MMM Do YYYY')
 				tr.clickable(onclick=location)
 					td
 						a(href='/jobsheets/view/'+jobsheet._id) #{jobsheet._id}
 					td
 						| #{jobsheet.data.customerdetailsname.value}
+					td
+						| #{date}
 					td
 						| #{modified}
 					td
