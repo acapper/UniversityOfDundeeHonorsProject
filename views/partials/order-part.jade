@@ -6,10 +6,12 @@ mixin addpart(partlayout, parts)
 			each part in parts
 				each section in partlayout
 					+newpart(section, part)
-	button(type="button").add-part.uk-button.uk-button-primary Add Part
+	.uk-placeholder.uk-padding-small.placeholder-primary(style="background-color:white")
+		a.uk-accordion-title.add-part
+			| Add Part
 
 mixin newpart(partlayout, part)
-	li.uk-margin-medium-left.part
+	li.part
 		a.uk-accordion-title(href="#")
 			| New Part
 		.uk-accordion-content
@@ -22,5 +24,5 @@ mixin newpart(partlayout, part)
 						- var value = input.value
 					.div.uk-margin
 						+controls(elementname, field, input, value)
-			button.uk-button.uk-button-danger.uk-float-right Delete
+			button(type="button").uk-button.uk-button-danger.uk-float-right.button-delete Delete
 
