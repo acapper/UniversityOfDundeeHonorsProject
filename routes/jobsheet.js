@@ -1,15 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../config');
-const db = require('../bin/database');
 
-const layout = require('../job-sheet-layout');
-const partlayout = require('../part-layout');
-const sitevisitlayout = require('../sitevisit-layout');
+const layout = require('../templates/job-sheet-layout');
+const partlayout = require('../templates/part-layout');
+const sitevisitlayout = require('../templates/sitevisit-layout');
 
 const mongo = require('mongodb');
-const uri = config.database.connection;
-const dbname = config.database.name;
 const dbcollection = 'Jobsheets';
 const dbjobsheets = require('../bin/database-jobsheets');
 
@@ -64,6 +60,7 @@ router.post('/new', function(req, res, next) {
 		console.log('New');
 		promise = dbjobsheets.new(dbcollection, {
 			modified: new Date(),
+			created: new Date(),
 			data: jobsheet.data
 		});
 	} else {
