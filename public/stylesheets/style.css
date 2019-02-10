@@ -46,3 +46,7 @@ button:focus {
 .uk-radio {
 	background-color: white !important;
 }
+
+.placeholder-primary {
+	border-color: #0f7ae5 !important;
+}
