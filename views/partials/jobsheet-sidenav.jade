@@ -1,6 +1,6 @@
 mixin sidenav(jobsheet)
-	div(class="uk-width-1-4@m uk-visible@m")
-		ul.uk-nav.uk-nav-default(uk-nav uk-sticky="offset: 60")
+	div(class="uk-width-1-4@m uk-visible")
+		ul.uk-nav.uk-nav-default(uk-nav uk-sticky="offset: 60; media: @m")
 			li.uk-margin-small-top
 				label.uk-form-label(for="staffassign")
 					| Assign Staff
@@ -25,9 +25,9 @@ mixin sidenav(jobsheet)
 				+savebutton(jobsheet)
 			li.uk-margin-small-top.uk-nav-center
 				p#savemessage.uk-invisible.uk-margin-remove-bottom.uk-padding-small
-			li.uk-parent.uk-nav-header
+			li.uk-parent.uk-nav-header(class="uk-visible@m")
 				| Navigation
-			ul.uk-nav-sub
+			ul.uk-nav-sub(class="uk-visible@m")
 				each section in layout
 					li
 						a(href="#"+section.title)
