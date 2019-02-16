@@ -5,7 +5,8 @@ $(document).ready(function() {
 				!$(this).val() &&
 				!$(this)
 					.closest('li')
-					.hasClass('uk-open')
+					.hasClass('uk-open') &&
+				$(this).attr('name') != 'duedate'
 			) {
 				UIkit.accordion('.uk-accordion').toggle(
 					$(this)
