@@ -12,8 +12,12 @@ mixin addpart(partlayout, parts)
 
 mixin newpart(partlayout, part)
 	li.part
+		- var name = "New Part"
+		if part != null
+			if part.data['item'].value != null
+				- name = part.data['item'].value
 		a.uk-accordion-title(href="#")
-			| New Part
+			| #{name}
 		.uk-accordion-content
 			.form.uk-form-horizontal.uk-clearfix
 				each field in partlayout.fields

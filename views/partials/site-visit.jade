@@ -13,8 +13,12 @@ mixin addsitevisit(sitevisitlayout, sitevisits)
 
 mixin newsitevisit(sitevisitlayout, site)
 	li.visit
+		- var name = "New Part"
+		if site != null
+			if site.data['address'].value != null
+				- name = site.data['address'].value
 		a.uk-accordion-title(href="#")
-			| New Site Visit
+			| #{name}
 		.uk-accordion-content
 			.form.uk-form-horizontal.uk-clearfix
 				each field in sitevisitlayout.fields
