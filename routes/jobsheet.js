@@ -36,7 +36,7 @@ router.get('/view/:id', function(req, res, next) {
 router.get('/all', function(req, res, next) {
 	dbjobsheets.getAll(dbcollection).then(
 		result => {
-			res.render('jobsheets', { jobsheets: result });
+			res.render('all-jobsheets', { jobsheets: result });
 		},
 		reason => {
 			res.render('error', { message: reason });
@@ -114,22 +114,39 @@ router.get('/delete/:id', function(req, res, next) {
 });
 
 router.get('/search', function(req, res, next) {
-	var q = {
-		$text: {
-			$search: 'description',
-			$diacriticSensitive: true
-		}
-	};
+	const search = req.query.search;
 
-	dbjobsheets.get(dbcollection, q).then(
-		result => {
-			res.json(result);
-		},
-		reason => {
-			console.log(reason);
-			res.render('error', { message: reason });
-		}
-	);
+	if (search == null || search == '') {
+		dbjobsheets.getAll(dbcollection).then(
+			result => {
+				res.render('partials/jobsheet-table', {
+					jobsheets: result
+				});
+			},
+			reason => {
+				res.render('error', { message: reason });
+			}
+		);
+	} else {
+		var q = {
+			$text: {
+				$search: search,
+				$diacriticSensitive: true
+			}
+		};
+
+		dbjobsheets.get(dbcollection, q).then(
+			result => {
+				res.render('partials/jobsheet-table', {
+					jobsheets: result
+				});
+			},
+			reason => {
+				console.log(reason);
+				res.render('error', { message: reason });
+			}
+		);
+	}
 });
 
 router.get('/part', function(req, res, next) {
