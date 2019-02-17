@@ -2,5 +2,23 @@ mixin sidenav()
 	div(class="uk-width-1-4@m uk-visible@m")
 		ul.uk-nav.uk-nav-default(uk-nav uk-sticky="offset: 60")
 			li.uk-margin-small-top
-				label.uk-form-label(for="staffassign")
-					| Assign Staff
+				label.uk-form-label(for="searchduedaterange")
+					| Due date range
+				input(id="searchduedaterange" name="searchduedaterange").uk-input
+			li.uk-margin-small-top
+				label.uk-form-label(for="searchcreateddaterange")
+					| Created date range
+				input(id="searchcreateddaterange" name="searchcreateddaterange").uk-input
+			li.uk-margin-small-top
+				label.uk-form-label(for="searchhassitevisit").uk-margin
+					| Has site visits
+					input(type="checkbox" id="searchhassitevisit" name="searchhassitevisit").uk-checkbox.uk-margin-left
+			li.uk-margin-small-top
+				label.uk-form-label(for="searchhasparts").uk-margin
+					| Has parts
+					input(type="checkbox" id="searchhasparts" name="searchhasparts").uk-checkbox.uk-margin-left
+			li.uk-margin-small-top.uk-nav-center
+				button.search.uk-button.uk-button-primary
+					| Search
+
+	script(src='/javascripts/date-range.js')
