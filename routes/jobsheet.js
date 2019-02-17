@@ -36,7 +36,7 @@ router.get('/view/:id', function(req, res, next) {
 router.get('/all', function(req, res, next) {
 	dbjobsheets.getAll(dbcollection).then(
 		result => {
-			res.render('all-jobsheets', { jobsheets: result });
+			res.render('all-jobsheets', { title: 'OCS', jobsheets: result });
 		},
 		reason => {
 			res.render('error', { message: reason });
@@ -115,38 +115,57 @@ router.get('/delete/:id', function(req, res, next) {
 
 router.get('/search', function(req, res, next) {
 	const search = req.query.search;
+	const due = req.query.due;
+	const created = req.query.created;
+	const sitevisits = req.query.sitevisits;
+	const parts = req.query.parts;
+	console.log(req.query);
+	//{'data.parts.1': {$exists: true}}
+	//{created: {$gte: ISODate("2018-04-29T00:00:00.000Z"),$lt: ISODate("2020-05-01T00:00:00.000Z")} }
 
-	if (search == null || search == '') {
-		dbjobsheets.getAll(dbcollection).then(
-			result => {
-				res.render('partials/jobsheet-table', {
-					jobsheets: result
-				});
-			},
-			reason => {
-				res.render('error', { message: reason });
-			}
-		);
-	} else {
-		var q = {
-			$text: {
-				$search: search,
-				$diacriticSensitive: true
-			}
+	var q = {};
+
+	if (search != null && search != '') {
+		q['$text'] = {
+			$search: search,
+			$diacriticSensitive: true
 		};
-
-		dbjobsheets.get(dbcollection, q).then(
-			result => {
-				res.render('partials/jobsheet-table', {
-					jobsheets: result
-				});
-			},
-			reason => {
-				console.log(reason);
-				res.render('error', { message: reason });
-			}
-		);
 	}
+	if (due != null && due != '') {
+		// Fix database
+		var dates = due.replace(/ /g, '').split('-');
+		q['data.duedate'] = {
+			$gte: new Date(dates[0]),
+			$lt: new Date(dates[1])
+		};
+	}
+	if (created != null && created != '') {
+		var dates = created.replace(/ /g, '').split('-');
+		q['created'] = {
+			$gte: new Date(dates[0]),
+			$lt: new Date(dates[1])
+		};
+	}
+	if (sitevisits == 'true') {
+		q['data.sitevisits.0'] = { $exists: true };
+	}
+	if (parts == 'true') {
+		q['data.parts.0'] = { $exists: true };
+	}
+
+	console.log(q);
+
+	dbjobsheets.get(dbcollection, q).then(
+		result => {
+			res.render('partials/jobsheet-table', {
+				jobsheets: result
+			});
+		},
+		reason => {
+			console.log(reason);
+			res.render('error', { message: reason });
+		}
+	);
 });
 
 router.get('/part', function(req, res, next) {
