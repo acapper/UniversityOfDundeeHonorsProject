@@ -55,6 +55,10 @@ router.get('/new', function(req, res, next) {
 router.post('/new', function(req, res, next) {
 	const id = req.body.id;
 	const jobsheet = req.body.jobsheet;
+
+	if (jobsheet.data.duedate.value != null)
+		jobsheet.data.duedate.value = new Date(jobsheet.data.duedate.value);
+
 	var promise = null;
 	if (id == null || id == '') {
 		console.log('New');
@@ -134,7 +138,7 @@ router.get('/search', function(req, res, next) {
 	if (due != null && due != '') {
 		// Fix database
 		var dates = due.replace(/ /g, '').split('-');
-		q['data.duedate'] = {
+		q['data.duedate.value'] = {
 			$gte: new Date(dates[0]),
 			$lt: new Date(dates[1])
 		};
