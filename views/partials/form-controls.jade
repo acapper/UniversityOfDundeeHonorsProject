@@ -16,7 +16,7 @@ mixin controls(elementname, field, input, value)
 			else
 				input(type=field.type name=elementname value=date).uk-input
 		else if field.type == "checkbox"
-			+checkbox(input, elementname)
+			+checkbox(field.required, input, elementname)
 		else if field.type == "confirmcheckbox"
 			+confirmcheckboxgroup(field.required, jobsheet, elementname)
 		else if field.type == "textarea"
