@@ -22,24 +22,6 @@ module.exports = {
 					label: 'Mobile',
 					type: 'text',
 					required: false
-				},
-				{
-					name: 'remote',
-					label: 'Remote',
-					type: 'checkbox',
-					required: false
-				},
-				{
-					name: 'date',
-					label: 'Date',
-					type: 'date',
-					required: false
-				},
-				{
-					name: 'time',
-					label: 'Time',
-					type: 'time',
-					required: false
 				}
 			]
 		},

@@ -36,7 +36,7 @@ router.get('/view/:id', function(req, res, next) {
 router.get('/all', function(req, res, next) {
 	dbjobsheets.getAll(dbcollection).then(
 		result => {
-			res.render('jobsheets', { jobsheets: result });
+			res.render('all-jobsheets', { title: 'OCS', jobsheets: result });
 		},
 		reason => {
 			res.render('error', { message: reason });
@@ -55,6 +55,10 @@ router.get('/new', function(req, res, next) {
 router.post('/new', function(req, res, next) {
 	const id = req.body.id;
 	const jobsheet = req.body.jobsheet;
+
+	if (jobsheet.data.duedate.value != null)
+		jobsheet.data.duedate.value = new Date(jobsheet.data.duedate.value);
+
 	var promise = null;
 	if (id == null || id == '') {
 		console.log('New');
@@ -114,16 +118,52 @@ router.get('/delete/:id', function(req, res, next) {
 });
 
 router.get('/search', function(req, res, next) {
-	var q = {
-		$text: {
-			$search: 'description',
+	const search = req.query.search;
+	const due = req.query.due;
+	const created = req.query.created;
+	const sitevisits = req.query.sitevisits;
+	const parts = req.query.parts;
+	console.log(req.query);
+	//{'data.parts.1': {$exists: true}}
+	//{created: {$gte: ISODate("2018-04-29T00:00:00.000Z"),$lt: ISODate("2020-05-01T00:00:00.000Z")} }
+
+	var q = {};
+
+	if (search != null && search != '') {
+		q['$text'] = {
+			$search: search,
 			$diacriticSensitive: true
-		}
-	};
+		};
+	}
+	if (due != null && due != '') {
+		// Fix database
+		var dates = due.replace(/ /g, '').split('-');
+		q['data.duedate.value'] = {
+			$gte: new Date(dates[0]),
+			$lt: new Date(dates[1])
+		};
+	}
+	if (created != null && created != '') {
+		var dates = created.replace(/ /g, '').split('-');
+		q['created'] = {
+			$gte: new Date(dates[0]),
+			$lt: new Date(dates[1])
+		};
+	}
+	if (sitevisits == 'true') {
+		q['data.sitevisits.0'] = { $exists: true };
+	}
+	if (parts == 'true') {
+		q['data.parts.0'] = { $exists: true };
+	}
+
+	console.log(q);
 
 	dbjobsheets.get(dbcollection, q).then(
 		result => {
-			res.json(result);
+			res.render('partials/jobsheet-table', {
+				jobsheets: result
+			});
 		},
 		reason => {
 			console.log(reason);

@@ -5,7 +5,8 @@ $(document).ready(function() {
 				!$(this).val() &&
 				!$(this)
 					.closest('li')
-					.hasClass('uk-open')
+					.hasClass('uk-open') &&
+				$(this).attr('name') != 'duedate'
 			) {
 				UIkit.accordion('.uk-accordion').toggle(
 					$(this)
@@ -29,8 +30,16 @@ $(document).ready(function() {
 		jobsheet.data = {};
 		$('form#jobsheetform :input').each(function() {
 			var obj = inputProcess($(this));
-			if ($(this).attr('name') != 'createddate')
-				if (obj.submit) jobsheet.data[obj.name] = obj.data;
+			if (
+				$('#partlist').has($(this)).length == 0 &&
+				$('#sitelist').has($(this)).length == 0
+			) {
+				if (
+					$(this).attr('name') != 'createddate' &&
+					!$(this).hasClass('save-button')
+				)
+					if (obj.submit) jobsheet.data[obj.name] = obj.data;
+			}
 		});
 
 		var sitevisits = [];
@@ -77,6 +86,8 @@ $(document).ready(function() {
 				}
 			}
 		});
+
+		console.log(jobsheet);
 	});
 
 	function inputProcess(input) {

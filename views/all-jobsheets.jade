@@ -1,0 +1,33 @@
+extends layout/layout
+include partials/all-jobsheets-sidenav
+include partials/jobsheet-table-body
+
+block content	
+	.uk-grid-large(uk-grid).uk-margin-small-bottom
+		.uk-invisible(class="uk-width-1-4@m")
+		h1.title All jobsheets
+	.uk-grid-large(uk-grid).uk-margin-medium-top
+		+sidenav()
+		div(class="uk-width-expand@m")
+			table.uk-table.uk-table-striped.uk-width-1-1
+				caption
+					form.uk-search.uk-search-default.uk-width-1-1
+						a.search(href="#" uk-search-icon)
+						input#searchinput.uk-search-input(type="search" placeholder="Search")
+				thead
+					tr
+						th
+							| ID
+						th
+							| Name
+						th
+							| Created
+						th
+							| Due
+						th
+							| Modified
+						th
+							| Tags
+				+jobsheet-table-body(jobsheets)
+
+	script(src='/javascripts/search.js')
