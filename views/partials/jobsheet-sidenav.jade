@@ -13,14 +13,18 @@ mixin sidenav(jobsheet, staff)
 							option
 								| None
 					else
-						option
+						option(selected="selected")
 							| None
 					each member in staff
-						if jobsheet.data.staffassign.value == member._id
-							option(value=member._id selected="selected")
-								| #{member.name}
+						if jobsheet != null 
+							if jobsheet.data.staffassign.value == member._id
+								option(value=member._id selected="selected")
+									| #{member.name}
+							else
+								option(value=member._id selected="selected")
+									| #{member.name}
 						else
-							option(value=member._id selected="selected")
+							option(value=member._id)
 								| #{member.name}
 			li.uk-margin-small-top
 				label.uk-form-label(for="duedate")
