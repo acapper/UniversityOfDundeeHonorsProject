@@ -19,6 +19,7 @@ $(document).ready(function() {
 					.parent('div')
 					.parent('div')
 					.addClass('uk-hidden');
+				$(this).val('');
 			}
 		});
 	}
