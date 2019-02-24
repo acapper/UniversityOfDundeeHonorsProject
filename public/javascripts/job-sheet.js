@@ -99,6 +99,8 @@ $(document).ready(function() {
 
 		if (type != 'radio' && type != 'checkbox') data.value = input.val();
 
+		if (name == 'staffassign') data.value = input.val();
+
 		if (type == 'checkbox') data.checked = input.is(':checked');
 
 		if (type == 'radio') {
