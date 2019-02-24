@@ -21,7 +21,7 @@ mixin sidenav(jobsheet, staff)
 								option(value=member._id selected="selected")
 									| #{member.name}
 							else
-								option(value=member._id selected="selected")
+								option(value=member._id)
 									| #{member.name}
 						else
 							option(value=member._id)
