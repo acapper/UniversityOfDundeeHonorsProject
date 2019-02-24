@@ -1,12 +1,27 @@
-mixin sidenav(jobsheet)
+mixin sidenav(jobsheet, staff)
 	div(class="uk-width-1-4@m uk-visible@m")
 		ul.uk-nav.uk-nav-default(uk-nav uk-sticky="offset: 60")
 			li.uk-margin-small-top
 				label.uk-form-label(for="staffassign")
 					| Assign Staff
 				select(name="staffassign").uk-select
-					option(value="None")
-						| None
+					if jobsheet != null 
+						if jobsheet.data.staffassign.value == "None"
+							option(selected="selected")
+								| None
+						else
+							option
+								| None
+					else
+						option
+							| None
+					each member in staff
+						if jobsheet.data.staffassign.value == member._id
+							option(value=member._id selected="selected")
+								| #{member.name}
+						else
+							option(value=member._id selected="selected")
+								| #{member.name}
 			li.uk-margin-small-top
 				label.uk-form-label(for="duedate")
 					| Due Date
