@@ -43,9 +43,13 @@ mixin radio(field, name, input)
 mixin select(field, name, input)
 	select(name=name).uk-select
 		each op in field.options
-			if op.value == input.value
-				option(value=op.value selected="selected")
-					| #{op.label}
+			if input != null
+				if op.value == input.value
+					option(value=op.value selected="selected")
+						| #{op.label}
+				else
+					option(value=op.value)
+						| #{op.label}
 			else
 				option(value=op.value)
 					| #{op.label}
