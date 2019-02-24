@@ -28,5 +28,7 @@ mixin controls(elementname, field, input, value)
 					| #{value}
 		else if field.type == "radio"
 			+radio(field, elementname, input)
+		else if field.type == "select"
+			+select(field, elementname, input)
 		else
 			p Unhandled type
