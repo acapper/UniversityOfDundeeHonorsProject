@@ -14,7 +14,7 @@ block content
 			
 	form#jobsheetform.uk-margin-large-bottom
 		.uk-grid-large(uk-grid)
-			+sidenav(jobsheet)
+			+sidenav(jobsheet, staff)
 			
 			div(class="uk-width-expand@m")
 				ul(uk-accordion="multiple: true")
@@ -26,3 +26,4 @@ block content
 			| #{jobsheet._id}
 
 	script(src='/javascripts/job-sheet.js')
+	script(src='/javascripts/problem-other.js')

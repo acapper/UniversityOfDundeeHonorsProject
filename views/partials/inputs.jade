@@ -39,3 +39,17 @@ mixin radio(field, name, input)
 						input(type=field.type name=name value=radio.value required).uk-radio
 					else
 						input(type=field.type name=name value=radio.value).uk-radio
+
+mixin select(field, name, input)
+	select(name=name).uk-select
+		each op in field.options
+			if input != null
+				if op.value == input.value
+					option(value=op.value selected="selected")
+						| #{op.label}
+				else
+					option(value=op.value)
+						| #{op.label}
+			else
+				option(value=op.value)
+					| #{op.label}

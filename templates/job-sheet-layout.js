@@ -39,8 +39,9 @@ module.exports = {
 				{
 					name: 'problem',
 					label: 'Problem',
-					type: 'radio',
+					type: 'select',
 					options: [
+						{ value: 'blank', label: '' },
 						{ value: 'clean', label: 'System cleanup/healthcheck' },
 						{
 							value: 'scam',
@@ -75,6 +76,12 @@ module.exports = {
 							label: 'Other'
 						}
 					],
+					required: false
+				},
+				{
+					name: 'problemother',
+					label: 'Problem (other)',
+					type: 'text',
 					required: false
 				},
 				{
