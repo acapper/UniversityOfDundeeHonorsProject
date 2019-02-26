@@ -6,35 +6,39 @@ const partlayout = require('../templates/part-layout');
 const sitevisitlayout = require('../templates/sitevisit-layout');
 
 const mongo = require('mongodb');
-const dbcollection = 'Jobsheets';
+const dbcollectionjobs = 'Jobsheets';
+const dbcollectionstaff = 'Staff';
 const dbjobsheets = require('../bin/database-jobsheets');
+const dbstaff = require('../bin/database-staff');
 
 router.get('/view/:id', function(req, res, next) {
 	var id = new mongo.ObjectID(req.params.id);
-	dbjobsheets
-		.get(dbcollection, {
-			_id: id
-		})
-		.then(
-			result => {
-				res.render('jobsheet', {
-					title: 'OCS',
-					name: 'Job Sheet Name',
-					layout: layout.template,
-					jobsheet: result[0],
-					partlayout: partlayout.template,
-					sitevisitlayout: sitevisitlayout.template
-				});
-			},
-			reason => {
-				console.log(reason);
-				res.render('error', { message: reason });
-			}
-		);
+	var jobs = dbjobsheets.get(dbcollectionjobs, {
+		_id: id
+	});
+
+	var staff = dbstaff.getAll(dbcollectionstaff);
+
+	Promise.all([jobs, staff]).then(
+		result => {
+			res.render('jobsheet', {
+				title: 'OCS',
+				name: 'Job Sheet Name',
+				layout: layout.template,
+				jobsheet: result[0][0],
+				partlayout: partlayout.template,
+				sitevisitlayout: sitevisitlayout.template,
+				staff: result[1]
+			});
+		},
+		reason => {
+			res.render('error', { message: reason });
+		}
+	);
 });
 
 router.get('/all', function(req, res, next) {
-	dbjobsheets.getAll(dbcollection).then(
+	dbjobsheets.getAll(dbcollectionjobs).then(
 		result => {
 			res.render('all-jobsheets', { title: 'OCS', jobsheets: result });
 		},
@@ -45,11 +49,20 @@ router.get('/all', function(req, res, next) {
 });
 
 router.get('/new', function(req, res, next) {
-	res.render('jobsheet', {
-		title: 'OCS',
-		name: 'Job Sheet Name',
-		layout: layout.template
-	});
+	var staff = dbstaff.getAll(dbcollectionstaff);
+	Promise.all([staff]).then(
+		result => {
+			res.render('jobsheet', {
+				title: 'OCS',
+				name: 'Job Sheet Name',
+				layout: layout.template,
+				staff: result[0]
+			});
+		},
+		reason => {
+			res.render('error', { message: reason });
+		}
+	);
 });
 
 router.post('/new', function(req, res, next) {
@@ -61,16 +74,13 @@ router.post('/new', function(req, res, next) {
 
 	var promise = null;
 	if (id == null || id == '') {
-		console.log('New');
-		promise = dbjobsheets.new(dbcollection, {
+		promise = dbjobsheets.new(dbcollectionjobs, {
 			modified: new Date(),
 			created: new Date(),
 			data: jobsheet.data
 		});
-	} else {
-		console.log('Updating');
 		promise = dbjobsheets.update(
-			dbcollection,
+			dbcollectionjobs,
 			{
 				_id: new mongo.ObjectID(id)
 			},
@@ -80,7 +90,6 @@ router.post('/new', function(req, res, next) {
 
 	promise.then(
 		result => {
-			console.log('Success');
 			if (id == null || id == '') {
 				res.send({ success: true, id: result.ops[0]._id });
 			} else {
@@ -88,8 +97,6 @@ router.post('/new', function(req, res, next) {
 			}
 		},
 		reason => {
-			console.log('Fail');
-			console.log(reason);
 			res.render('error', { message: reason });
 		}
 	);
@@ -97,18 +104,13 @@ router.post('/new', function(req, res, next) {
 
 router.get('/delete/:id', function(req, res, next) {
 	const id = req.params.id;
-	console.log(req);
-	console.log({
-		_id: id
-	});
 
 	dbjobsheets
-		.delete(dbcollection, {
+		.delete(dbcollectionjobs, {
 			_id: new mongo.ObjectID(id)
 		})
 		.then(
 			result => {
-				//console.log(result);
 				res.redirect('/jobsheets/all');
 			},
 			reason => {
@@ -123,9 +125,6 @@ router.get('/search', function(req, res, next) {
 	const created = req.query.created;
 	const sitevisits = req.query.sitevisits;
 	const parts = req.query.parts;
-	console.log(req.query);
-	//{'data.parts.1': {$exists: true}}
-	//{created: {$gte: ISODate("2018-04-29T00:00:00.000Z"),$lt: ISODate("2020-05-01T00:00:00.000Z")} }
 
 	var q = {};
 
@@ -136,7 +135,6 @@ router.get('/search', function(req, res, next) {
 		};
 	}
 	if (due != null && due != '') {
-		// Fix database
 		var dates = due.replace(/ /g, '').split('-');
 		q['data.duedate.value'] = {
 			$gte: new Date(dates[0]),
@@ -157,9 +155,7 @@ router.get('/search', function(req, res, next) {
 		q['data.parts.0'] = { $exists: true };
 	}
 
-	console.log(q);
-
-	dbjobsheets.get(dbcollection, q).then(
+	dbjobsheets.get(dbcollectionjobs, q).then(
 		result => {
 			res.render('partials/jobsheet-table', {
 				jobsheets: result
