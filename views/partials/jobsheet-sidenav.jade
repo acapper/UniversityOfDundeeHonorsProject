@@ -47,9 +47,9 @@ mixin sidenav(jobsheet, staff)
 				+savebutton(jobsheet)
 			li.uk-margin-small-top.uk-nav-center
 				p#savemessage.uk-invisible.uk-margin-remove-bottom.uk-padding-small
-			li.uk-parent.uk-nav-header
+			li.uk-parent.uk-nav-header(class="uk-visible@m")
 				| Navigation
-			ul.uk-nav-sub#test
+			ul.uk-nav-sub(class="uk-visible@m")
 				each section in layout
 					li
 						a(href="#"+section.title)

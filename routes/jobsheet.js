@@ -23,7 +23,6 @@ router.get('/view/:id', function(req, res, next) {
 
 	Promise.all([jobs, staff]).then(
 		result => {
-			console.log(result);
 			res.render('jobsheet', {
 				title: 'OCS',
 				name: 'Job Sheet Name',
@@ -35,7 +34,6 @@ router.get('/view/:id', function(req, res, next) {
 			});
 		},
 		reason => {
-			console.log(reason);
 			res.render('error', { message: reason });
 		}
 	);
@@ -56,7 +54,6 @@ router.get('/new', function(req, res, next) {
 	var staff = dbstaff.getAll(dbcollectionstaff);
 	Promise.all([staff]).then(
 		result => {
-			console.log(result[0]);
 			res.render('jobsheet', {
 				title: 'OCS',
 				name: 'Job Sheet Name',
@@ -65,7 +62,6 @@ router.get('/new', function(req, res, next) {
 			});
 		},
 		reason => {
-			console.log(reason);
 			res.render('error', { message: reason });
 		}
 	);
@@ -152,7 +148,6 @@ router.get('/delete/:id', function(req, res, next) {
 		})
 		.then(
 			result => {
-				//console.log(result);
 				res.redirect('/jobsheets/all');
 			},
 			reason => {
