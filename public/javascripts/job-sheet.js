@@ -54,20 +54,18 @@ $(document).ready(function() {
 			url: '/jobsheets/label',
 			data: { id: id },
 			success: function(res) {
-				var labelElement = $(res)[0];
-				console.log($(res)[0]);
-				console.log(labelElement);
-
 				document.body.appendChild($(res)[0]);
-				domtoimage
-					.toPng(document.getElementById('label'))
-					.then(function(dataUrl) {
+				var label = document.getElementById('label');
+				label.classList.remove('uk-hidden');
+				domtoimage.toPng(label).then(function(dataUrl) {
+					setTimeout(function() {
 						$('#label').remove();
 						var link = document.createElement('a');
 						link.download = title + ' label.png';
 						link.href = dataUrl;
 						click(link);
-					});
+					}, 1);
+				});
 			}
 		});
 	});

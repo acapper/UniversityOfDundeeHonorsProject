@@ -1,4 +1,4 @@
-#label(style="width: 730px;")
+#label(style="width: 730px;").uk-hidden
 	.uk-clearfix
 		.uk-float-left.uk-margin-small-top
 			// https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
@@ -11,7 +11,7 @@
 			- n = n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 			.uk-text-lead.uk-text-large Job: ##{n}
 		.uk-float-right
-			img(src='/images/ocs-logo.png' style="height:80px").uk-logo
+			img(src='/images/ocs-logo.png' style="height:80px").uk-logo#labellogo
 	- var name = "Test Name";
 	if jobsheet != null
 		- name = jobsheet.data.customerdetailsname.value;
