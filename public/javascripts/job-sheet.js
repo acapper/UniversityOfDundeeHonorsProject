@@ -64,7 +64,7 @@ $(document).ready(function() {
 						link.download = title + ' label.png';
 						link.href = dataUrl;
 						click(link);
-					}, 1);
+					}, 100);
 				});
 			}
 		});
