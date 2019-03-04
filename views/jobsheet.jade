@@ -8,7 +8,13 @@ block content
 		.uk-invisible(class="uk-width-1-4@m")
 		if jobsheet != null
 			- var date = moment(new Date(jobsheet.created)).format('MMM Do YYYY')
-			h1 #{jobsheet.data.customerdetailsname.value} (#{date})
+			// https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
+			- var n = jobsheet._id
+			- var width = 8
+			- var z = '0';
+			- n = n + '';
+			- n = n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+			h1#title ##{n} - #{jobsheet.data.customerdetailsname.value} (#{date})
 		else
 			h1 New Job Sheet
 			
@@ -25,5 +31,6 @@ block content
 		p#id.uk-hidden
 			| #{jobsheet._id}
 
+	script(src='/javascripts/dom-to-blob.min.js')
 	script(src='/javascripts/job-sheet.js')
 	script(src='/javascripts/problem-other.js')

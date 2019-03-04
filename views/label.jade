@@ -1,0 +1,19 @@
+#label(style="width: 730px;")
+	.uk-clearfix
+		.uk-float-left.uk-margin-small-top
+			// https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
+			- var n = jobsheet._id
+			- var width = 8
+			- var z = '0';
+			- n = n + '';
+			- n = n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+			.uk-text-lead.uk-text-large Job: ##{n}
+		.uk-float-right
+			img(src='/images/ocs-logo.png' style="height:80px").uk-logo
+	div.uk-flex.uk-flex-between
+		.uk-text-lead(style="font-size: 50px;") Name: #{jobsheet.data.customerdetailsname.value}
+	div.uk-flex.uk-flex-between
+		.uk-text-lead.uk-text-large Telephone: 01631 566561
+		.uk-text-lead.uk-text-large Mobile: 07810 686560
+	div.uk-flex
+		.uk-text-lead.uk-text-large Address: Unit 4, Mill Lane, Oban, Argyll, PA34 4HA

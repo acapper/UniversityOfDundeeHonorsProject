@@ -40,13 +40,16 @@ mixin sidenav(jobsheet, staff)
 						| Created On
 					- var date = moment(new Date(jobsheet.created)).format('YYYY-MM-DD')
 					input(type="date" name="createddate" value=date readonly disabled ).uk-input
+				li.uk-margin-small-top.uk-nav-center
+					button.print-button.uk-button.uk-button-primary
+						| Download Label
 			li.uk-margin-small-top.uk-nav-center
 				+savebutton(jobsheet)
 			li.uk-margin-small-top.uk-nav-center
 				p#savemessage.uk-invisible.uk-margin-remove-bottom.uk-padding-small
 			li.uk-parent.uk-nav-header
 				| Navigation
-			ul.uk-nav-sub
+			ul.uk-nav-sub#test
 				each section in layout
 					li
 						a(href="#"+section.title)
@@ -54,7 +57,7 @@ mixin sidenav(jobsheet, staff)
 
 mixin savebutton(jobsheet)
 	if jobsheet != null
-		button.save-button.uk-button.uk-button-primary(submit="submit")
+		button.save-button.uk-button.uk-button-primary(submit="submit")#save
 			| Update
 	else
 		button.save-button.uk-button.uk-button-primary(submit="submit")
