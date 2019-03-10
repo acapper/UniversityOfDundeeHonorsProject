@@ -38,7 +38,8 @@ router.get('/view/:id', function(req, res, next) {
 				jobsheet: result[0][0],
 				partlayout: partlayout.template,
 				sitevisitlayout: sitevisitlayout.template,
-				staff: result[1]
+				staff: result[1],
+				user: req.user
 			});
 		},
 		reason => {
@@ -70,7 +71,8 @@ router.get('/new', function(req, res, next) {
 				title: 'OCS',
 				name: 'Job Sheet Name',
 				layout: layout.template,
-				staff: result[0]
+				staff: result[0],
+				user: req.user
 			});
 		},
 		reason => {
