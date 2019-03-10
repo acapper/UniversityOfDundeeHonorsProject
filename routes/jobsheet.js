@@ -13,6 +13,14 @@ const dbstaff = require('../bin/database-staff');
 const fs = require('fs');
 const path = require('path');
 
+router.use(function timeLog(req, res, next) {
+	if (req.isAuthenticated()) {
+		return next();
+	} else {
+		res.redirect('/');
+	}
+});
+
 router.get('/view/:id', function(req, res, next) {
 	var id = req.params.id;
 	var jobs = dbjobsheets.get(dbcollectionjobs, {
@@ -42,7 +50,11 @@ router.get('/view/:id', function(req, res, next) {
 router.get('/all', function(req, res, next) {
 	dbjobsheets.getAll(dbcollectionjobs).then(
 		result => {
-			res.render('all-jobsheets', { title: 'OCS', jobsheets: result });
+			res.render('all-jobsheets', {
+				title: 'OCS',
+				jobsheets: result,
+				user: req.user
+			});
 		},
 		reason => {
 			res.render('error', { message: reason });
