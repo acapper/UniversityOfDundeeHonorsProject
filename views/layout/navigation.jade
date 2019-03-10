@@ -1,4 +1,4 @@
-nav.uk-navbar-container.uk-margin(uk-navbar='')
+nav.uk-navbar-container(uk-navbar='')
 	.uk-navbar-left
 		.uk-navbar-item
 			a(href='/')
@@ -8,3 +8,13 @@ nav.uk-navbar-container.uk-margin(uk-navbar='')
 				a(href='/') New
 			li
 				a(href='/jobsheets/all') All
+	.uk-navbar-right
+		.uk-navbar-nav
+			if user
+				li
+					a(href="#") #{user}
+						.uk-navbar-dropdown.uk-padding-remove.uk-margin-remove
+							ul.uk-nav.uk-navbar-dropdown-nav
+								li
+									a(href="/logout") Logout
+
