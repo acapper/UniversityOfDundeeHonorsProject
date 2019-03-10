@@ -1,6 +1,10 @@
-extends layout/layout
-
-block content
-	h1 Error
-	h2= message
-	pre #{error.stack}
+doctype html
+html
+	head
+		title Error
+		include layout/header
+	body
+		h1 Error
+		h2= message
+		if error
+			pre #{error.stack}
