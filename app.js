@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
+const passport = require('passport');
 
 const indexRouter = require('./routes/index');
 const jobsheetRouter = require('./routes/jobsheet');
@@ -21,6 +23,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+	session({ secret: 'keyboard cat', resave: true, saveUninitialized: false })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/jobsheets', jobsheetRouter);
