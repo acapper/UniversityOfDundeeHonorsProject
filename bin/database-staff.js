@@ -32,3 +32,25 @@ exports.getAll = function(collection) {
 		);
 	});
 };
+
+exports.getOne = function(query, collection) {
+	return new Promise(function(resolve, reject) {
+		db.connect(uri).then(
+			con => {
+				db.find(con, dbname, collection, query).then(
+					result => {
+						con.close();
+						resolve(result[0]);
+					},
+					reason => {
+						con.close();
+						reject(reason);
+					}
+				);
+			},
+			reason => {
+				reject(reason);
+			}
+		);
+	});
+};
