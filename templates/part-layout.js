@@ -3,11 +3,12 @@ module.exports = {
 		{
 			name: 'part',
 			fields: [
-				{ name: 'item', label: 'Item', type: 'text' },
+				{ name: 'item', label: 'Item', type: 'text', required: true },
 				{
 					name: 'datepurchased',
 					label: 'Date Purchased',
-					type: 'date'
+					type: 'date',
+					required: true
 				},
 				{
 					name: 'ebay',
@@ -20,7 +21,12 @@ module.exports = {
 					type: 'checkbox'
 				},
 				{ name: 'other', label: 'Other', type: 'text' },
-				{ name: 'costprice', label: 'Cost Price', type: 'number' },
+				{
+					name: 'costprice',
+					label: 'Cost Price',
+					type: 'number',
+					required: true
+				},
 				{ name: 'postage', label: 'Postage', type: 'number' },
 				{
 					name: 'addionalfixed',
