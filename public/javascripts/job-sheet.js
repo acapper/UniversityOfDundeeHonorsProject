@@ -1,19 +1,46 @@
 $(document).ready(function() {
+	function openList(t) {
+		var first = $(this).closest('li');
+		var second = $(this)
+			.closest('li')
+			.parent()
+			.closest('li');
+		if (!second.hasClass('uk-open')) {
+			UIkit.accordion('.uk-accordion').toggle(second.index(), true);
+		}
+		if (!first.hasClass('uk-open')) {
+			UIkit.accordion(t).toggle(first.index(), true);
+		}
+	}
+
 	$('.save-button').click(function() {
 		$(':input[required]').each(function() {
-			if (
-				!$(this).val() &&
-				!$(this)
-					.closest('li')
-					.hasClass('uk-open') &&
-				$(this).attr('name') != 'duedate'
-			) {
-				UIkit.accordion('.uk-accordion').toggle(
-					$(this)
+			if ($(this).val() == null || $(this).val() == '') {
+				if (
+					!$(this)
 						.closest('li')
-						.index(),
-					true
-				);
+						.hasClass('uk-open') &&
+					$(this).attr('name') == 'customerdetailsname'
+				) {
+					UIkit.accordion('.uk-accordion').toggle(
+						$(this)
+							.closest('li')
+							.index(),
+						true
+					);
+				} else if (
+					$(this).attr('name') == 'item' ||
+					$(this).attr('name') == 'datepurchased' ||
+					$(this).attr('name') == 'costprice'
+				) {
+					openList('#partlist');
+				} else if (
+					$(this).attr('name') == 'address' ||
+					$(this).attr('name') == 'date' ||
+					$(this).attr('name') == 'time'
+				) {
+					openList('#sitelist');
+				}
 			}
 		});
 	});
@@ -76,9 +103,15 @@ $(document).ready(function() {
 			.remove();
 	});
 
-	$('.save-button').click(function() {
-		if ($(this).hasClass('save-button')) {
-			event.preventDefault();
+	$('#jobsheetform').submit(function() {
+		event.preventDefault();
+		var required = false;
+		$(':input[required]').each(function() {
+			if ($(this).val() == null || $(this).val() == '') {
+				required = true;
+			}
+		});
+		if (!required) {
 			var jobsheet = new Object();
 			jobsheet.data = {};
 			$('form#jobsheetform :input').each(function() {
@@ -102,8 +135,10 @@ $(document).ready(function() {
 				$(this)
 					.find(':input')
 					.each(function() {
-						var obj = inputProcess($(this));
-						if (obj.submit) visit.data[obj.name] = obj.data;
+						if (!$(this).is(':button')) {
+							var obj = inputProcess($(this));
+							if (obj.submit) visit.data[obj.name] = obj.data;
+						}
 					});
 				sitevisits.push(visit);
 			});
@@ -116,8 +151,10 @@ $(document).ready(function() {
 				$(this)
 					.find(':input')
 					.each(function() {
-						var obj = inputProcess($(this));
-						if (obj.submit) part.data[obj.name] = obj.data;
+						if (!$(this).is(':button')) {
+							var obj = inputProcess($(this));
+							if (obj.submit) part.data[obj.name] = obj.data;
+						}
 					});
 				parts.push(part);
 			});
@@ -139,8 +176,6 @@ $(document).ready(function() {
 					}
 				}
 			});
-
-			console.log(jobsheet);
 		}
 	});
 
