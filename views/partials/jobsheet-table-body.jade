@@ -7,7 +7,6 @@ mixin jobsheet-table-body(jobsheets)
 			td
 			td
 			td
-			td
 			td.uk-align-right.uk-margin-remove-bottom
 				a.uk-icon-link(href='/jobsheets/new/' uk-icon="icon: plus")
 		each jobsheet in jobsheets
@@ -26,7 +25,5 @@ mixin jobsheet-table-body(jobsheets)
 					| #{duedate}
 				td
 					| #{modified}
-				td
-					| Tag
 				td.uk-align-right.uk-margin-remove-bottom
 					a.uk-icon-link(href='/jobsheets/delete/'+jobsheet._id uk-icon="icon: trash")
