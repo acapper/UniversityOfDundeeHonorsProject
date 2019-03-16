@@ -1,4 +1,4 @@
-const user = require('../bin/user');
+const user = require('../bin/models/user/user');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
