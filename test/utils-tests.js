@@ -6,17 +6,17 @@ describe('Utils Tests', function() {
 			const old = {
 				name: 'test',
 				nothing: null,
-				nest: { test: 1, nest: { test: 1 } }
+				nest: { test: 1, nest: { test: 1, array: [1, 2, 3] } }
 			};
 			const updated = {
 				name: 'test',
 				new: null,
-				nest: { test: 2, nest: { test: 3, array: [1, 2, 3] } }
+				nest: { test: 2, nest: { test: 3, array: [4, 5, 6] } }
 			};
 			const expected = {
 				name: 'test',
 				nothing: null,
-				nest: { test: 2, nest: { test: 3, array: [1, 2, 3] } }
+				nest: { test: 2, nest: { test: 3, array: [4, 5, 6] } }
 			};
 			const result = utils.updateJSON(old, updated);
 
