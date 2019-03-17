@@ -19,7 +19,7 @@ module.exports = {
 	},
 	problem: {
 		description: String,
-		type: String,
+		problemtype: String,
 		equipment: String,
 		make: String,
 		model: String,
