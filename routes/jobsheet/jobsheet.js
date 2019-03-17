@@ -1,57 +1,129 @@
 const express = require('express');
 const router = express.Router();
 const jobsheet = require('../../bin/models/jobsheet/jobsheet');
+const user = require('../../bin/models/user/user');
+const part = require('../../bin/models/part/part');
+const site = require('../../bin/models/site/site');
 const jobsheetTemplate = require('../../bin/models/jobsheet/jobsheet-template');
+const partTemplate = require('../../bin/models/part/part-template');
+const siteTemplate = require('../../bin/models/site/site-template');
 
-router.get('/insert', function(req, res, next) {
+var userList = [{ _id: null, username: 'None' }];
+user.all()
+	.then(res => {
+		res.forEach(element => {
+			userList.push(element);
+		});
+	})
+	.catch(err => {
+		console.log('User List Error');
+		console.log(err);
+	});
+
+router.get('/', function(req, res, next) {
 	res.render('mongoose/jobsheet', {
-		title: 'OCS'
+		title: 'OCS',
+		jobsheet: null,
+		jobsheetTemplate: jobsheetTemplate,
+		partTemplate: partTemplate,
+		siteTemplate: siteTemplate,
+		userList: userList
 	});
 });
 
+var getNewIDs = (objects, type) => {
+	return new Promise(function(resolve, reject) {
+		var list = [];
+		if (objects) {
+			console.log(objects);
+			if (objects.constructor === [].constructor) {
+				objects.forEach(item => {
+					console.log(item);
+					list.push(type.new(item));
+				});
+			} else list.push(type.new(objects));
+		}
+		Promise.all(list)
+			.then(results => {
+				var ids = [];
+				results.forEach(item => {
+					ids.push(item._id);
+				});
+				resolve(ids);
+			})
+			.catch(err => {
+				console.log(err);
+				reject(err);
+			});
+	});
+};
+
 router.post('/insert', function(req, res, next) {
-	var data = {
-		meta: { due: Date.now() },
-		customer: { name: 'test' },
-		sites: ['5c8d7c9653d5013b40909a42'],
-		parts: ['5c8d89d2117a32152c9d7ff5']
-	};
-	jobsheet
-		.new(data)
-		.then(doc => {
-			res.json(doc);
+	const data = req.body.data;
+	const parts = getNewIDs(data.parts, part);
+	const sites = getNewIDs(data.sites, site);
+	Promise.all([parts, sites])
+		.then(results => {
+			data.parts = results[0];
+			data.sites = results[1];
+
+			jobsheet
+				.new(data)
+				.then(doc => {
+					res.send({ id: doc._id });
+				})
+				.catch(err => {
+					console.log(err);
+					res.send(err.message);
+				});
 		})
 		.catch(err => {
-			res.send(err.message);
+			console.log(err);
 		});
 });
 
 router.get('/:id', function(req, res, next) {
-	var id = req.params.id;
+	const id = req.params.id;
 	jobsheet
 		.findOne(id)
 		.then(doc => {
 			res.render('mongoose/jobsheet', {
 				title: 'OCS',
 				jobsheet: doc,
-				jobsheetTemplate: jobsheetTemplate
+				jobsheetTemplate: jobsheetTemplate,
+				partTemplate: partTemplate,
+				siteTemplate: siteTemplate,
+				userList: userList
 			});
 		})
 		.catch(err => {
+			console.log(err);
 			res.send(err.message);
 		});
 });
 
-router.get('/update/:id', function(req, res, next) {
-	var id = req.params.id;
-	var data = { due: Date.now(), customer: { name: 'another' } };
-	jobsheet
-		.update(id, data)
-		.then(doc => {
-			res.json(doc);
+router.post('/update', function(req, res, next) {
+	const id = req.body.id;
+	const data = req.body.data;
+	const parts = getNewIDs(data.parts, part);
+	const sites = getNewIDs(data.sites, site);
+	Promise.all([parts, sites])
+		.then(results => {
+			data.parts = results[0];
+			data.sites = results[1];
+
+			jobsheet
+				.update(id, data)
+				.then(doc => {
+					res.send({ id: doc._id });
+				})
+				.catch(err => {
+					console.log(err);
+					res.send(err.message);
+				});
 		})
 		.catch(err => {
-			res.send(err.message);
+			console.log(err);
 		});
 });
 
@@ -63,6 +135,7 @@ router.get('/delete/:id', function(req, res, next) {
 			res.json(doc);
 		})
 		.catch(err => {
+			console.log(err);
 			res.send(err.message);
 		});
 });
