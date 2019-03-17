@@ -9,6 +9,7 @@ const passport = require('passport');
 const indexRouter = require('./routes/index');
 const jobsheetRouter = require('./routes/jobsheet');
 const listsRouter = require('./routes/lists');
+const mongoosetemp = require('./routes/mongoose-temp');
 
 const app = express();
 
@@ -33,6 +34,8 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/jobsheets', jobsheetRouter);
 app.use('/lists', listsRouter);
+// Temp while refactoring
+app.use('/mongoose', mongoosetemp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
