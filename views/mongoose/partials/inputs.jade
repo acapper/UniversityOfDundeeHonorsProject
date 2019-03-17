@@ -2,62 +2,81 @@
 include parts
 include sites
 
-mixin inputs(key, object, data)
+mixin inputs(key, template, data, partTemplate, siteTemplate, userList)
 	.uk-form-controls.uk-margin
-		if object.type != "confirm" && object.type != "boolean"
-			label.uk-form-label #{object.title}
-		if object.type == "string"
-			input.uk-input(type="text" placeholder=object.title value=data)
-		else if object.type == "boolean"
+		if template.type == "string"
+			+label(template)
+			input.uk-input(type="text" placeholder=template.title name=key value=data required=template.requiredfield)
+		else if template.type == "time"
+			+label(template)
+			input.uk-input(type="time" placeholder=template.title name=key value=data required=template.requiredfield)
+		else if template.type == "boolean"
 			.uk-column-1-2
 				.uk-column-1-2
-					label.uk-form-label #{object.title}
-					if data
-						input.uk-checkbox(type="checkbox" checked)
-					else
-						input.uk-checkbox(type="checkbox")
-		else if object.type == "confirm"
+					+label(template)
+					input.uk-checkbox(type="checkbox" name=key checked=data)
+		else if template.type == "confirm"
 			.uk-column-1-3
 				div
-					label.uk-form-label(style="display: inline !important") #{object.title}
+					label.uk-form-label(style="display: inline !important") #{template.title}
 				div
 					label.uk-form-label.uk-padding-small(style="display: inline !important") Required? 
-						if data.required
-							input.uk-checkbox(type="checkbox" checked)
+						if data 
+							input.uk-checkbox(type="checkbox" name=key+" required" checked=data.required)
 						else
-							input.uk-checkbox(type="checkbox")
+							input.uk-checkbox(type="checkbox" name=key+" required" checked=false)
 				div
 					label.uk-form-label.uk-padding-small(style="display: inline !important") Done? 
-						if data.done
-							input.uk-checkbox(type="checkbox" checked)
+						if data 
+							input.uk-checkbox(type="checkbox" name=key+" done" checked=data.done)
 						else
-							input.uk-checkbox(type="checkbox")
+							input.uk-checkbox(type="checkbox" name=key+" done" checked=false)
 			hr
-		else if object.type == "date"
+		else if template.type == "date"
+			+label(template)
 			- var date = null
 			if data
 				- date = moment(new Date(data)).format('YYYY-MM-DD')
-			input.uk-input(type="date" value=date)
-		else if object.type == "number"
-			input.uk-input(type="number" value=data)
-		else if object.type == "textarea"
-			textarea.uk-textarea(type="textarea" rows=5) #{data}
-		else if object.type == "user"
-			select.uk-select
-				option 1
-				option 2
-		else if object.type == "equipment"
-			select.uk-select
-				each o in object.options
+			input.uk-input(type="date" value=date name=key required=template.requiredfield)
+		else if template.type == "number"
+			+label(template)
+			input.uk-input(type="number" value=data name=key required=template.requiredfield)
+		else if template.type == "textarea"		
+			+label(template)
+			textarea.uk-textarea(type="textarea" rows=5 name=key required=template.requiredfield) #{data}
+		else if template.type == "user"
+			+label(template)
+			select(required=template.requiredfield name=key).uk-select
+				each u in userList
+					option(data-id=u._id) #{u.username}
+		else if template.type == "equipment"
+			+label(template)
+			select(required=template.requiredfield name=key).uk-select
+				each o in template.options
 					option #{o}
-		else if object.type == "timestamp"
-			- var date = null
+		else if template.type == "timestamp"
 			if data
-				- date = moment(new Date(data)).format('MMMM Do YYYY, h:mm:ss a');
-			p #{date}
-		else if object.type == "part"
-			+addpart()
-		else if object.type == "site"
-			+addsite()
+				label.uk-form-label #{template.title}
+				- var date = moment(new Date(data)).format('MMMM Do YYYY, h:mm:ss a');
+				p #{date}
+		else if template.type == "datecreated"
+			if data
+				label.uk-form-label #{template.title}
+				- var date = moment(new Date(data)).format('MMMM Do YYYY, h:mm:ss a');
+				p #{date}
+		else if template.type == "part"
+			+addpart(partTemplate, data)
+		else if template.type == "site"
+			+addsite(siteTemplate, data)
+		else if template.type == "status"
+			if data
+				p.status(data-val=data) Status: #{data}
+			else
+				p.status(data-val=data) Status: Ordered
 		else
-			p #{key} #{object.type}
+			p No input type for: #{key} #{template.type}
+
+mixin label(template)
+	label.uk-form-label #{template.title}
+		if template.requiredfield
+			span(style="color:red") *
