@@ -39,6 +39,15 @@ exports.findByUsername = username => {
 	});
 };
 
+exports.all = () => {
+	return new Promise(function(resolve, reject) {
+		User.find({}, 'username', function(err, doc) {
+			if (err) reject(err);
+			resolve(doc);
+		});
+	});
+};
+
 exports.update = (id, data) => {
 	return new Promise(function(resolve, reject) {
 		utils.checkID(id);
