@@ -1,0 +1,84 @@
+extends ../layout/layout
+
+include ../partials/jobsheet-section
+include ../partials/jobsheet-sidenav
+include partials/inputs
+
+block content
+	.uk-grid-large(uk-grid).uk-padding
+		.uk-invisible(class="uk-width-1-4@m")
+		if jobsheet != null
+			- var date = moment(new Date(jobsheet.meta.created)).format('MMM Do YYYY')
+			// https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
+			- var n = jobsheet._id
+			- var width = 8
+			- var z = '0';
+			- n = n + '';
+			- n = n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+			h1#title ##{n} - #{jobsheet.customer.name} (#{date})
+		else
+			h1 New Job Sheet
+
+	form#jobsheetform.uk-form-stacked.uk-margin-large-bottom
+		.uk-grid(uk-grid)
+			+sidenav(jobsheetTemplate, jobsheet.meta)
+			.uk-width-expand
+				+firstkeys(jobsheetTemplate, jobsheet)
+
+mixin formgen(template, key, data)
+	if template[key].type
+		if data
+			+inputs(key, template[key], data[key])
+		else
+			+inputs(key, template[key], null)
+	else
+		+keys(template[key], data[key])
+
+
+mixin keys(template, data)
+	- var keys = Object.keys(template)
+	if keys
+		each k in keys
+			if k != "section"
+				+formgen(template, k, data)
+
+mixin firstkeys(template, data)
+	- var keys = Object.keys(template)
+	- var first = true
+	if keys
+		each k in keys
+			if first
+				- first = false
+			else
+				section(id=template[k].section)
+					.uk-card.uk-card-body.uk-card-default.uk-margin-medium
+						h3.uk-card-title #{template[k].section}
+						if k != "section"
+							+formgen(template, k, data)
+
+mixin sidenav(template, data)
+	section(id=template.meta.section class="uk-width-1-4@m uk-visible@m")
+			- var keys = Object.keys(template.meta)
+			ul.uk-nav.uk-nav-default.uk-card.uk-card-body.uk-card-default.uk-margin-medium(uk-nav uk-sticky="offset: 60")
+				li.uk-parent.uk-nav-header(class="uk-visible@m")
+					| Navigation
+				if keys
+					each k in keys
+						if k != "section"
+							li.uk-margin-small-top
+								+formgen(template.meta, k, data)
+				li.uk-margin-small-top.uk-nav-center
+					p Save Button
+				li.uk-margin-small-top.uk-nav-center
+					p Print Button
+				li.uk-margin-small-top.uk-nav-center
+					p#savemessage.uk-invisible.uk-margin-remove-bottom.uk-padding-small
+				li.uk-parent.uk-nav-header(class="uk-visible@m")
+					| Navigation
+				ul.uk-nav-sub(class="uk-visible@m")
+					- var nav = Object.keys(template)
+					each k in nav
+						if k != "meta"
+							li
+								a(href="#"+template[k].section)
+									| #{template[k].section}
