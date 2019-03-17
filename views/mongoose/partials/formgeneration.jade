@@ -1,0 +1,62 @@
+
+mixin formgen(template, key, data)
+	if template[key].type
+		if data
+			+inputs(key, template[key], data[key], partTemplate, siteTemplate, userList)
+		else
+			+inputs(key, template[key], null, partTemplate, siteTemplate, userList)
+	else
+		if data
+			+keys(template[key], data[key])
+		else
+			+keys(template[key], null)
+
+
+mixin keys(template, data)
+	- var keys = Object.keys(template)
+	if keys
+		each k in keys
+			if k != "section"
+				+formgen(template, k, data)
+
+mixin firstkeys(template, data)
+	- var keys = Object.keys(template)
+	- var first = true
+	if keys
+		each k in keys
+			if first
+				- first = false
+			else
+				section(id=template[k].section data-key=k)
+					.uk-card.uk-card-body.uk-card-default.uk-margin-medium
+						h3.uk-card-title #{template[k].section}
+						if k != "section"
+							+formgen(template, k, data)
+
+mixin sidenav(template, data)
+	section(id=template.meta.section class="uk-width-1-4@m uk-visible@m" data-key="meta")
+			- var keys = Object.keys(template.meta)
+			ul.uk-nav.uk-nav-default.uk-card.uk-card-body.uk-card-default.uk-margin-medium(uk-nav uk-sticky="offset: 60")
+				li.uk-parent.uk-nav-header(class="uk-visible@m")
+					| Navigation
+				if keys
+					each k in keys
+						if k != "section"
+							li.uk-margin-small-top
+								+formgen(template.meta, k, data, userList)
+				li.uk-margin-small-top.uk-nav-center
+					if data
+						input.uk-button.uk-button-primary#savebutton(type="submit" value="Update")
+					else
+						input.uk-button.uk-button-primary#savebutton(type="submit" value="Save")
+				li.uk-margin-small-top.uk-nav-center
+					p Print Button
+				li.uk-parent.uk-nav-header(class="uk-visible@m")
+					| Navigation
+				ul.uk-nav-sub(class="uk-visible@m")
+					- var nav = Object.keys(template)
+					each k in nav
+						if k != "meta"
+							li
+								a(href="#"+template[k].section)
+									| #{template[k].section}
