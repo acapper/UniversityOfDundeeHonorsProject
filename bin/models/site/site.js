@@ -5,7 +5,6 @@ var exports = (module.exports = {});
 
 exports.new = site => {
 	return new Promise(function(resolve, reject) {
-		console.log('here');
 		if (!site) throw new Error('Site is null');
 		if (!site.address.street) throw new Error('Address street required');
 		if (!site.address.city) throw new Error('Address city required');
