@@ -39,6 +39,7 @@ exports.update = (id, data) => {
 				reject(new Error('Document not found'));
 			} else {
 				doc = utils.updateJSON(doc, data);
+				doc.meta.modified = Date.now();
 				doc.save(function(err, res) {
 					if (err) reject(err);
 					resolve(res);
