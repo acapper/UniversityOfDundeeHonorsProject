@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 module.exports = {
-	created: { type: Date, default: Date.now },
-	modified: { type: Date, default: Date.now },
-	assigned: { type: Schema.Types.ObjectId, ref: 'user' },
-	due: { type: Date, required: true },
+	meta: {
+		created: { type: Date, default: Date.now },
+		modified: { type: Date, default: Date.now },
+		assigned: { type: Schema.Types.ObjectId, ref: 'user' },
+		due: { type: Date, required: true }
+	},
 	customer: {
 		name: { type: String, required: true },
 		address: {
