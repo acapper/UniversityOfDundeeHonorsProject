@@ -1,4 +1,5 @@
 module.exports = {
+	status: { type: String, default: 'Ordered' },
 	name: { type: String, required: true },
 	purchased: { type: Date, required: true },
 	store: String,
