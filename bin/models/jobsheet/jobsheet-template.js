@@ -2,13 +2,13 @@ module.exports = {
 	meta: {
 		section: 'Meta',
 		assigned: { type: 'user', title: 'Staff assigned' },
-		due: { type: 'date', title: 'Due date' },
-		created: { type: 'date', title: 'Date created' },
+		due: { type: 'date', title: 'Due date', requiredfield: true },
+		created: { type: 'datecreated', title: 'Date created' },
 		modified: { type: 'timestamp', title: 'Last modified' }
 	},
 	customer: {
 		section: 'Customer Details',
-		name: { type: 'string', title: 'Name' },
+		name: { type: 'string', title: 'Name', requiredfield: true },
 		address: {
 			street: { type: 'string', title: 'Street' },
 			city: { type: 'string', title: 'City' },
