@@ -20,7 +20,7 @@ a {
 button:focus {
 	background: #00b7ff;
 	border-style: dashed;
-	border-width: 3px;
+	border-width: 2px;
 	border-color: #ffffff;
 }
 
