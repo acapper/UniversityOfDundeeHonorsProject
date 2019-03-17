@@ -1,6 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const part = require('../../bin/models/part/part');
+const partTemplate = require('../../bin/models/part/part-template');
+
+router.get('/blank', function(req, res, next) {
+	res.render('mongoose/singlepart', {
+		title: 'OCS',
+		partTemplate: partTemplate
+	});
+});
 
 router.get('/insert', function(req, res, next) {
 	var data = { name: 'part', purchased: Date.now(), cost: 20 };
