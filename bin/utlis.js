@@ -13,8 +13,6 @@ exports.checkID = id => {
 
 exports.updateJSON = (oldJSON, newJSON) => {
 	Object.keys(newJSON).forEach(item => {
-		/*if (Object.keys(newJSON).includes(item)) oldJSON[item] = newJSON[item];
-		else*/
 		try {
 			if (newJSON[item].constructor === {}.constructor)
 				oldJSON[item] = exports.updateJSON(
