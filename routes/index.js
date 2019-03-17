@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const user = require('../bin/user');
+const user = require('../bin/models/user/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -46,11 +46,11 @@ passport.deserializeUser(function(id, done) {
 router.post(
 	'/',
 	passport.authenticate('local', {
-		successRedirect: '/jobsheets/all',
+		successRedirect: '/mongoose/jobsheet/view/14',
 		failureRedirect: '/'
 	}),
 	function(req, res, next) {
-		res.redirect('/jobsheets/all');
+		res.redirect('/mongoose/jobsheet/14');
 	}
 );
 
