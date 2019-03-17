@@ -1,0 +1,63 @@
+
+include parts
+include sites
+
+mixin inputs(key, object, data)
+	.uk-form-controls.uk-margin
+		if object.type != "confirm" && object.type != "boolean"
+			label.uk-form-label #{object.title}
+		if object.type == "string"
+			input.uk-input(type="text" placeholder=object.title value=data)
+		else if object.type == "boolean"
+			.uk-column-1-2
+				.uk-column-1-2
+					label.uk-form-label #{object.title}
+					if data
+						input.uk-checkbox(type="checkbox" checked)
+					else
+						input.uk-checkbox(type="checkbox")
+		else if object.type == "confirm"
+			.uk-column-1-3
+				div
+					label.uk-form-label(style="display: inline !important") #{object.title}
+				div
+					label.uk-form-label.uk-padding-small(style="display: inline !important") Required? 
+						if data.required
+							input.uk-checkbox(type="checkbox" checked)
+						else
+							input.uk-checkbox(type="checkbox")
+				div
+					label.uk-form-label.uk-padding-small(style="display: inline !important") Done? 
+						if data.done
+							input.uk-checkbox(type="checkbox" checked)
+						else
+							input.uk-checkbox(type="checkbox")
+			hr
+		else if object.type == "date"
+			- var date = null
+			if data
+				- date = moment(new Date(data)).format('YYYY-MM-DD')
+			input.uk-input(type="date" value=date)
+		else if object.type == "number"
+			input.uk-input(type="number" value=data)
+		else if object.type == "textarea"
+			textarea.uk-textarea(type="textarea" rows=5) #{data}
+		else if object.type == "user"
+			select.uk-select
+				option 1
+				option 2
+		else if object.type == "equipment"
+			select.uk-select
+				each o in object.options
+					option #{o}
+		else if object.type == "timestamp"
+			- var date = null
+			if data
+				- date = moment(new Date(data)).format('MMMM Do YYYY, h:mm:ss a');
+			p #{date}
+		else if object.type == "part"
+			+addpart()
+		else if object.type == "site"
+			+addsite()
+		else
+			p #{key} #{object.type}
