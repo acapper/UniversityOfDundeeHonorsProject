@@ -1,4 +1,24 @@
-mixin addpart()
+mixin addpart(template, data)
 	ul#partlist(uk-accordion="multiple: true").nested-accordion
+		if data
+			each p in data
+				+part(template, p)
 	.uk-placeholder.uk-padding-small.placeholder-primary(style="background-color:white")
-		a.uk-accordion-title.add-part Add Part
+		a.uk-accordion-title.add-part(href="") Add Part
+
+mixin part(template, p)
+	- var name = "New Part"
+	- var status = "Set to arrived"
+	if p
+		- name = p.name
+	li.uk-padding-remove
+		a.uk-accordion-title.uk-padding-small.uk-tile.uk-tile-muted(href="#") #{name}
+		.uk-accordion-content.uk-tile.uk-tile-muted.uk-margin-remove.uk-padding-small
+			+keys(template, p)
+			button(type="button").uk-button.uk-button-danger.uk-float-right.button-delete Delete
+			if !p
+				button(type="button").uk-button.uk-float-right.button-status Set to arrived
+			else if p.status == "Arrived"
+				button(type="button").uk-button.uk-button-primary.uk-float-right.button-status Set to ordered
+			else
+				button(type="button").uk-button.uk-float-right.button-status Set to arrived
