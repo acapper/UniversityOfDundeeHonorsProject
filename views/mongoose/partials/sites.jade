@@ -1,4 +1,19 @@
-mixin addsite()
+
+mixin addsite(template, data)
 	ul#sitelist(uk-accordion="multiple: true").nested-accordion
+		if data
+			each s in data
+				+site(template, s)
 	.uk-placeholder.uk-padding-small.placeholder-primary(style="background-color:white")
-		a.uk-accordion-title.add-part Add Site Visit
+		a.uk-accordion-title.add-site Add Site Visit
+
+mixin site(template, s)
+	- var name = "New Site Visit"
+	if s
+		if s.address
+			- name = s.address.street
+	li.uk-padding-remove
+		a.uk-accordion-title.uk-padding-small.uk-tile.uk-tile-muted(href="#") #{name}
+		.uk-accordion-content.uk-tile.uk-tile-muted.uk-margin-remove.uk-padding-small
+			+keys(template, s)
+			button(type="button").uk-button.uk-button-danger.uk-float-right.button-delete Delete
