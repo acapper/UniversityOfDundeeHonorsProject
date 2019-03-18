@@ -35,10 +35,8 @@ var getNewIDs = (objects, type) => {
 	return new Promise(function(resolve, reject) {
 		var list = [];
 		if (objects) {
-			console.log(objects);
 			if (objects.constructor === [].constructor) {
 				objects.forEach(item => {
-					console.log(item);
 					list.push(type.new(item));
 				});
 			} else list.push(type.new(objects));
@@ -60,6 +58,7 @@ var getNewIDs = (objects, type) => {
 
 router.post('/insert', function(req, res, next) {
 	const data = req.body.data;
+	console.log(data.meta);
 	const parts = getNewIDs(data.parts, part);
 	const sites = getNewIDs(data.sites, site);
 	Promise.all([parts, sites])
@@ -105,6 +104,7 @@ router.get('/:id', function(req, res, next) {
 router.post('/update', function(req, res, next) {
 	const id = req.body.id;
 	const data = req.body.data;
+	console.log(data.meta);
 	const parts = getNewIDs(data.parts, part);
 	const sites = getNewIDs(data.sites, site);
 	Promise.all([parts, sites])
@@ -132,7 +132,7 @@ router.get('/delete/:id', function(req, res, next) {
 	jobsheet
 		.delete(id)
 		.then(doc => {
-			res.json(doc);
+			res.redirect('/mongoose/all');
 		})
 		.catch(err => {
 			console.log(err);
