@@ -173,7 +173,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.button-delete').click(function() {
+	$(document).on('click', '.button-delete', function() {
 		$(this)
 			.closest('li')
 			.remove();
