@@ -30,14 +30,20 @@ autoIncrement.initialize(mongoose.connection);
 jobsheetSchema.plugin(autoIncrement.plugin, 'jobsheet');
 jobsheetSchema.pre('remove', function(next, res) {
 	res.sites.forEach(element => {
-		this.model('site').deleteOne({
-			_id: mongoose.Types.ObjectId(element._id)
-		});
+		this.model('site')
+			.deleteOne({
+				_id: mongoose.Types.ObjectId(element._id)
+			})
+			.then(doc => {})
+			.catch(err => console.log(err));
 	});
 	res.parts.forEach(element => {
-		this.model('part').deleteOne({
-			_id: mongoose.Types.ObjectId(element._id)
-		});
+		this.model('part')
+			.deleteOne({
+				_id: mongoose.Types.ObjectId(element._id)
+			})
+			.then(doc => {})
+			.catch(err => console.log(err));
 	});
 	next();
 });
