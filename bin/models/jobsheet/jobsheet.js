@@ -18,6 +18,15 @@ exports.new = jobsheet => {
 	});
 };
 
+exports.all = () => {
+	return new Promise(function(resolve, reject) {
+		Jobsheet.find({}, function(err, doc) {
+			if (err) reject(err);
+			resolve(doc);
+		});
+	});
+};
+
 exports.findOne = id => {
 	return new Promise(function(resolve, reject) {
 		Jobsheet.findById(id)
