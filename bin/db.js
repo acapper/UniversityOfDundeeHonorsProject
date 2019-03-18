@@ -12,12 +12,6 @@ exports.mongoose = mongoose.connect(dbname, {
 	useCreateIndex: true
 });
 
-const jobsheet = require('./models/jobsheet/jobsheet-schema');
-const jobsheetSchema = new Schema(jobsheet);
-autoIncrement.initialize(mongoose.connection);
-jobsheetSchema.plugin(autoIncrement.plugin, 'jobsheet');
-exports.Jobsheet = mongoose.model('jobsheet', jobsheetSchema);
-
 const site = require('./models/site/site-schema');
 const siteSchema = new Schema(site);
 exports.Site = mongoose.model('site', siteSchema);
@@ -29,3 +23,22 @@ exports.User = mongoose.model('user', userSchema);
 const part = require('./models/part/part-schema');
 const partSchema = new Schema(part);
 exports.Part = mongoose.model('part', partSchema);
+
+const jobsheet = require('./models/jobsheet/jobsheet-schema');
+const jobsheetSchema = new Schema(jobsheet);
+autoIncrement.initialize(mongoose.connection);
+jobsheetSchema.plugin(autoIncrement.plugin, 'jobsheet');
+jobsheetSchema.pre('remove', function(next, res) {
+	res.sites.forEach(element => {
+		this.model('site').deleteOne({
+			_id: mongoose.Types.ObjectId(element._id)
+		});
+	});
+	res.parts.forEach(element => {
+		this.model('part').deleteOne({
+			_id: mongoose.Types.ObjectId(element._id)
+		});
+	});
+	next();
+});
+exports.Jobsheet = mongoose.model('jobsheet', jobsheetSchema);

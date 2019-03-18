@@ -62,6 +62,7 @@ exports.delete = id => {
 	return new Promise(function(resolve, reject) {
 		Jobsheet.findByIdAndRemove(id).exec((err, res) => {
 			if (err) reject(err);
+			res.remove(res);
 			resolve(res);
 		});
 	});
