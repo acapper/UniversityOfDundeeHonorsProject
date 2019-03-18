@@ -58,7 +58,6 @@ var getNewIDs = (objects, type) => {
 
 router.post('/insert', function(req, res, next) {
 	const data = req.body.data;
-	console.log(data.meta);
 	const parts = getNewIDs(data.parts, part);
 	const sites = getNewIDs(data.sites, site);
 	Promise.all([parts, sites])
@@ -104,7 +103,6 @@ router.get('/:id', function(req, res, next) {
 router.post('/update', function(req, res, next) {
 	const id = req.body.id;
 	const data = req.body.data;
-	console.log(data.meta);
 	const parts = getNewIDs(data.parts, part);
 	const sites = getNewIDs(data.sites, site);
 	Promise.all([parts, sites])
