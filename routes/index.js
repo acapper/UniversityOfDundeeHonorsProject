@@ -46,11 +46,11 @@ passport.deserializeUser(function(id, done) {
 router.post(
 	'/',
 	passport.authenticate('local', {
-		successRedirect: '/mongoose/jobsheet/view/14',
+		successRedirect: '/jobsheet/all',
 		failureRedirect: '/'
 	}),
 	function(req, res, next) {
-		res.redirect('/mongoose/jobsheet/14');
+		res.redirect('/jobsheet/all');
 	}
 );
 

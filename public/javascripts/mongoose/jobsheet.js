@@ -74,10 +74,15 @@ $(document).ready(function() {
 					sub[name] = $(this).is(':checked');
 				else if (val && val != '') {
 					if (name == 'assigned') {
-						sub[name] = $(this)
-							.find(':selected')
-							.attr('data-id')
-							.replace(/['"]+/g, '');
+						if (
+							$(this)
+								.find(':selected')
+								.attr('data-id')
+						)
+							sub[name] = $(this)
+								.find(':selected')
+								.attr('data-id')
+								.replace(/['"]+/g, '');
 					} else sub[name] = val;
 				}
 			}
@@ -124,21 +129,21 @@ $(document).ready(function() {
 		if ($('#savebutton').val() == 'Save')
 			$.ajax({
 				type: 'POST',
-				url: '/mongoose/jobsheet/insert',
+				url: '/jobsheet/insert',
 				dataType: 'json',
 				data: { data },
 				success: function(res) {
-					$(location).attr('href', '/mongoose/jobsheet/' + res.id);
+					$(location).attr('href', '/jobsheet/' + res.id);
 				}
 			});
 		else {
 			$.ajax({
 				type: 'POST',
-				url: '/mongoose/jobsheet/update',
+				url: '/jobsheet/update',
 				dataType: 'json',
 				data: { id: $('#id').attr('data-id'), data },
 				success: function(res) {
-					$(location).attr('href', '/mongoose/jobsheet/' + res.id);
+					$(location).attr('href', '/jobsheet/' + res.id);
 				}
 			});
 		}
@@ -149,7 +154,7 @@ $(document).ready(function() {
 		console.log('Getting new part');
 		$.ajax({
 			type: 'GET',
-			url: '/mongoose/jobsheet/part/blank',
+			url: '/jobsheet/part/blank',
 			success: function(res) {
 				$('#partlist').append(res);
 			}
@@ -161,7 +166,7 @@ $(document).ready(function() {
 		console.log('Getting new part');
 		$.ajax({
 			type: 'GET',
-			url: '/mongoose/jobsheet/site/blank',
+			url: '/jobsheet/site/blank',
 			success: function(res) {
 				$('#sitelist').append(res);
 			}

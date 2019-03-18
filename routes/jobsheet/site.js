@@ -4,7 +4,7 @@ const site = require('../../bin/models/site/site');
 const siteTemplate = require('../../bin/models/site/site-template');
 
 router.get('/blank', function(req, res, next) {
-	res.render('mongoose/singlesite', {
+	res.render('jobsheet/singlesite', {
 		title: 'OCS',
 		siteTemplate: siteTemplate
 	});

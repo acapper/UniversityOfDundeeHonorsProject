@@ -21,13 +21,24 @@ user.all()
 	});
 
 router.get('/', function(req, res, next) {
-	res.render('mongoose/jobsheet', {
+	res.render('jobsheet/jobsheet', {
 		title: 'OCS',
 		jobsheet: null,
 		jobsheetTemplate: jobsheetTemplate,
 		partTemplate: partTemplate,
 		siteTemplate: siteTemplate,
-		userList: userList
+		userList: userList,
+		user: req.user
+	});
+});
+
+router.get('/all', function(req, res, next) {
+	jobsheet.all().then(docs => {
+		res.render('jobsheet/all', {
+			title: 'OCS',
+			jobsheets: docs,
+			user: req.user
+		});
 	});
 });
 
@@ -85,13 +96,14 @@ router.get('/:id', function(req, res, next) {
 	jobsheet
 		.findOne(id)
 		.then(doc => {
-			res.render('mongoose/jobsheet', {
+			res.render('jobsheet/jobsheet', {
 				title: 'OCS',
 				jobsheet: doc,
 				jobsheetTemplate: jobsheetTemplate,
 				partTemplate: partTemplate,
 				siteTemplate: siteTemplate,
-				userList: userList
+				userList: userList,
+				user: req.user
 			});
 		})
 		.catch(err => {
@@ -130,7 +142,7 @@ router.get('/delete/:id', function(req, res, next) {
 	jobsheet
 		.delete(id)
 		.then(doc => {
-			res.redirect('/mongoose/all');
+			res.redirect('/jobsheet/all');
 		})
 		.catch(err => {
 			console.log(err);

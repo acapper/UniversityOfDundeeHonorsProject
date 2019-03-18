@@ -4,7 +4,7 @@ const part = require('../../bin/models/part/part');
 const partTemplate = require('../../bin/models/part/part-template');
 
 router.get('/blank', function(req, res, next) {
-	res.render('mongoose/singlepart', {
+	res.render('jobsheet/singlepart', {
 		title: 'OCS',
 		partTemplate: partTemplate
 	});
