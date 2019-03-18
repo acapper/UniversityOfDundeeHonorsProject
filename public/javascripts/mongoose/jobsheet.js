@@ -73,8 +73,12 @@ $(document).ready(function() {
 				if ($(this).attr('type') == 'checkbox')
 					sub[name] = $(this).is(':checked');
 				else if (val && val != '') {
-					if (name == 'assigned') sub[name] = $(this).attr('data-id');
-					else sub[name] = val;
+					if (name == 'assigned') {
+						sub[name] = $(this)
+							.find(':selected')
+							.attr('data-id')
+							.replace(/['"]+/g, '');
+					} else sub[name] = val;
 				}
 			}
 		});
