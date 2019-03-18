@@ -1,4 +1,4 @@
-extends layout/layout
+extends ../layout/layout
 include partials/all-jobsheets-sidenav
 include partials/jobsheet-table-body
 
@@ -27,5 +27,3 @@ block content
 						th
 							| Modified
 				+jobsheet-table-body(jobsheets)
-
-	script(src='/javascripts/search.js')

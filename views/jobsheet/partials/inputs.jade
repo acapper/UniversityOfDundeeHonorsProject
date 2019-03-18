@@ -48,7 +48,11 @@ mixin inputs(key, template, data, partTemplate, siteTemplate, userList)
 			+label(template)
 			select(required=template.requiredfield name=key).uk-select
 				each u in userList
-					option(data-id=u._id) #{u.username}
+					- var e = String(u._id) == String(data)
+					if e
+						option(data-id=u._id selected="selected") #{u.username}
+					else
+						option(data-id=u._id selected=false) #{u.username}
 		else if template.type == "equipment"
 			+label(template)
 			select(required=template.requiredfield name=key).uk-select

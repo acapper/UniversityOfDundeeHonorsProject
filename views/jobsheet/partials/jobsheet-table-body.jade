@@ -1,0 +1,29 @@
+mixin jobsheet-table-body(jobsheets)
+	tbody#table-body
+		tr.uk-placeholder.clickable(onclick="window.location='/mongoose/jobsheet/';")
+			td
+				| Add New Job Sheet
+			td
+			td
+			td
+			td
+			td.uk-align-right.uk-margin-remove-bottom
+				a.uk-icon-link(href='/mongoose/jobsheets/' uk-icon="icon: plus")
+		each jobsheet in jobsheets
+			- var location = "window.location='/mongoose/jobsheet/" + jobsheet._id + "';"
+			- var modified = moment(jobsheet.meta.modified, "YYYYMMDD").fromNow();
+			- var date = moment(new Date(jobsheet.meta.created)).format('MMM Do YYYY')
+			- var duedate = moment(new Date(jobsheet.meta.due)).format('MMM Do YYYY')
+			tr.clickable(onclick=location)
+				td
+					a(href='/mongoose/jobsheet/'+jobsheet._id) #{jobsheet._id}
+				td
+					| #{jobsheet.customer.name}
+				td
+					| #{date}
+				td
+					| #{duedate}
+				td
+					| #{modified}
+				td.uk-align-right.uk-margin-remove-bottom
+					a.uk-icon-link(href='/mongoose/jobsheet/delete/'+jobsheet._id uk-icon="icon: trash")
