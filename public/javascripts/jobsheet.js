@@ -179,7 +179,7 @@ $(document).ready(function() {
 			.remove();
 	});
 
-	$('.button-status').click(function() {
+	$(document).on('click', '.button-status', function() {
 		var status = $(this)
 			.closest('li')
 			.find('.status');
