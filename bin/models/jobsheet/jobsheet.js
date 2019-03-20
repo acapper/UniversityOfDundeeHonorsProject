@@ -22,10 +22,23 @@ exports.new = jobsheet => {
 
 exports.all = () => {
 	return new Promise(function(resolve, reject) {
-		Jobsheet.find({}, function(err, doc) {
-			if (err) reject(err);
-			resolve(doc);
-		});
+		Jobsheet.find({})
+			.sort({ 'meta.modified': -1 })
+			.exec((err, doc) => {
+				if (err) reject(err);
+				resolve(doc);
+			});
+	});
+};
+
+exports.search = query => {
+	return new Promise(function(resolve, reject) {
+		Jobsheet.find(query, { score: { $meta: 'textScore' } })
+			.sort({ score: { $meta: 'textScore' } })
+			.exec((err, doc) => {
+				if (err) reject(err);
+				resolve(doc);
+			});
 	});
 };
 

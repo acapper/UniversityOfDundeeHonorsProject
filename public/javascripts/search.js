@@ -1,7 +1,7 @@
 var search = function() {
 	$.ajax({
 		type: 'GET',
-		url: '/jobsheets/search',
+		url: '/jobsheet/all/search',
 		data: {
 			search: $('#searchinput').val(),
 			due: $('#searchduedaterange').val(),

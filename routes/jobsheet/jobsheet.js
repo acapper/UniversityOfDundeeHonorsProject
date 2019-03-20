@@ -166,4 +166,54 @@ router.get('/delete/:id', function(req, res, next) {
 		});
 });
 
+router.get('/all/search', function(req, res, next) {
+	const search = req.query.search;
+	const due = req.query.due;
+	const created = req.query.created;
+	const sitevisits = req.query.sitevisits;
+	const parts = req.query.parts;
+
+	var q = {};
+
+	if (search != null && search != '') {
+		q['$text'] = {
+			$search: search,
+			$diacriticSensitive: true
+		};
+	}
+	if (due != null && due != '') {
+		var dates = due.replace(/ /g, '').split('-');
+		q['meta.due'] = {
+			$gte: new Date(dates[0]),
+			$lt: new Date(dates[1])
+		};
+	}
+	if (created != null && created != '') {
+		var dates = created.replace(/ /g, '').split('-');
+		q['meta.created'] = {
+			$gte: new Date(dates[0]),
+			$lt: new Date(dates[1])
+		};
+	}
+	if (sitevisits == 'true') {
+		q['sites.0'] = { $exists: true };
+	}
+	if (parts == 'true') {
+		q['parts.0'] = { $exists: true };
+	}
+
+	jobsheet
+		.search(q)
+		.then(docs => {
+			res.render('jobsheet/tablesearch', {
+				title: 'OCS',
+				jobsheets: docs
+			});
+		})
+		.catch(err => {
+			console.log(err);
+			res.send(err.message);
+		});
+});
+
 module.exports = router;
