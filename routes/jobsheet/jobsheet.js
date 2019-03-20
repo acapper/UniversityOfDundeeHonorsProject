@@ -176,24 +176,17 @@ router.get('/all/search', function(req, res, next) {
 	var q = {};
 
 	if (search != null && search != '') {
-		try {
-			q = {
-				$or: [
-					{ _id: Number(search) },
-					{
-						$text: {
-							$search: search,
-							$diacriticSensitive: true
-						}
+		q = {
+			$or: [
+				{ _id: search },
+				{
+					$text: {
+						$search: search,
+						$diacriticSensitive: true
 					}
-				]
-			};
-		} catch (err) {
-			q['$text'] = {
-				$search: search,
-				$diacriticSensitive: true
-			};
-		}
+				}
+			]
+		};
 	}
 	if (due != null && due != '') {
 		var dates = due.replace(/ /g, '').split('-');
