@@ -13,17 +13,23 @@ block content
 				.uk-card.uk-card-default.uk-card-body 
 					h3.uk-card-title #{s.jobsheet.customer.name}
 					if s.address
-						h4 Address
-						p Street: #{s.address.street}
-						p City: #{s.address.city}
-						p Postcode: #{s.address.postcode}
+						h4.uk-margin-small Address
+						address.uk-margin-small
+							|Street: #{s.address.street}
+							br
+							| City: #{s.address.city}
+							br
+							| Postcode: #{s.address.postcode}
 					if s.date
 						- var date = moment(new Date(s.date)).format('MMM Do YYYY')
-						p Date: #{date}
+						h4.uk-margin-small Date
+						p.uk-margin-small #{date}
 					if s.time
-						p Time: #{s.time}
+						h4.uk-margin-small Time
+						p.uk-margin-small #{s.time}
 					if s.notes
-						p #{s.notes}
-					a(href="/jobsheet/"+s.jobsheet._id) View Jobsheet
+						h4.uk-margin-small Notes
+						p.uk-margin-small #{s.notes}
+					a.uk-margin(href="/jobsheet/"+s.jobsheet._id) View Jobsheet
 					br
 					//a(href="/jobsheet/"+s.jobsheet._id) Get Directions

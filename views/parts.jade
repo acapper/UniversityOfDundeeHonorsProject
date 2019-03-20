@@ -13,14 +13,18 @@ block content
 				.uk-card.uk-card-default.uk-card-body 
 					h3.uk-card-title #{p.name}
 					if p.status
-						p Status: #{p.status}
+						h4.uk-margin-small Status
+						p.uk-margin-small #{p.status}
 					if p.purchased
 						- var date = moment(new Date(p.purchased)).format('MMM Do YYYY')
-						p Date Purchased: #{date}
+						h4.uk-margin-small Date Purchased
+						p.uk-margin-small #{date}
 					if p.cost
-						p Cost: £#{p.cost}
+						h4.uk-margin-small Cost
+						p.uk-margin-small £ #{p.cost}
 					if p.store
-						p From: #{p.store}
+						h4.uk-margin-small Store
+						p.uk-margin-small #{p.store}
 					a(id=p._id href="/jobsheet/"+p.jobsheet) View Jobsheet
-					button(data-id=p._id type="button").uk-button.button-status Set status to arrived
+					button(data-id=p._id type="button").uk-margin-small.uk-button.button-status Set status to arrived
 	script(src='/javascripts/parts.js')
