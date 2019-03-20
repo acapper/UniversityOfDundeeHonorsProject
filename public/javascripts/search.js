@@ -15,11 +15,20 @@ var search = function() {
 	});
 };
 
+/*https://stackoverflow.com/questions/14042193/how-to-trigger-an-event-in-input-text-after-i-stop-typing-writing*/
+var delay = (function() {
+	var timer = 0;
+	return function(callback, ms) {
+		clearTimeout(timer);
+		timer = setTimeout(callback, ms);
+	};
+})();
+
 $(document).ready(function() {
 	$('#searchinput').on('keyup', function(e) {
-		if (e.keyCode == 13) {
+		delay(function() {
 			search();
-		}
+		}, 250);
 	});
 
 	$('.search').click(function() {
