@@ -26,6 +26,18 @@ mixin firstkeys(template, data)
 		each k in keys
 			if first
 				- first = false
+				section(id=template[k].section data-key=k class="uk-hidden@m")
+					.uk-card.uk-card-body.uk-card-default.uk-margin-medium
+						h3.uk-card-title #{template[k].section}
+						if k != "section"
+							+formgen(template, k, data)
+						.uk-margin-small-top.uk-nav-center
+							if data
+								input.uk-button.uk-button-primary#savebutton(type="submit" value="Update")
+							else
+								input.uk-button.uk-button-primary#savebutton(type="submit" value="Save")
+						.uk-margin-small-top.uk-nav-center
+							p Print Button
 			else
 				section(id=template[k].section data-key=k)
 					.uk-card.uk-card-body.uk-card-default.uk-margin-medium

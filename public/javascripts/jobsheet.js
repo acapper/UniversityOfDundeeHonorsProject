@@ -117,14 +117,16 @@ $(document).ready(function() {
 		$('#jobsheetform section').each(function() {
 			var key = $(this).attr('data-key');
 			var sub = null;
-			if (key == 'customer') sub = customer($(this));
-			else if (key == 'invoice') sub = invoice($(this));
-			else if (key == 'setup') sub = setup($(this));
-			else if (key == 'notes') sub = notes($(this));
-			else if (key == 'parts') sub = parts($(this));
-			else if (key == 'sites') sub = sites($(this));
-			else sub = misc($(this));
-			data[key] = sub;
+			if ($(this).css('display') != 'none') {
+				if (key == 'customer') sub = customer($(this));
+				else if (key == 'invoice') sub = invoice($(this));
+				else if (key == 'setup') sub = setup($(this));
+				else if (key == 'notes') sub = notes($(this));
+				else if (key == 'parts') sub = parts($(this));
+				else if (key == 'sites') sub = sites($(this));
+				else sub = misc($(this));
+				data[key] = sub;
+			}
 		});
 		console.log(data);
 
