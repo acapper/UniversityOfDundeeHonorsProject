@@ -46,11 +46,10 @@ var getNewIDs = (objects, type) => {
 	return new Promise(function(resolve, reject) {
 		var list = [];
 		if (objects) {
-			if (objects.constructor === [].constructor) {
-				objects.forEach(item => {
-					list.push(type.new(item));
-				});
-			} else list.push(type.new(objects));
+			objects.forEach(item => {
+				if (item.id != null) list.push(type.update(item.id, item.data));
+				else list.push(type.new(item.data));
+			});
 		}
 		Promise.all(list)
 			.then(results => {

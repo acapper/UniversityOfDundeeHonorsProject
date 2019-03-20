@@ -96,7 +96,8 @@ $(document).ready(function() {
 	var parts = section => {
 		var list = [];
 		section.find('li').each(function() {
-			list.push(misc($(this)));
+			var id = $(this).attr('data-id');
+			list.push({ id: id, data: misc($(this)) });
 		});
 		return list;
 	};
@@ -104,7 +105,8 @@ $(document).ready(function() {
 	var sites = section => {
 		var list = [];
 		section.find('li').each(function() {
-			list.push(customer($(this)));
+			var id = $(this).attr('data-id');
+			list.push({ id: id, data: customer($(this)) });
 		});
 		return list;
 	};

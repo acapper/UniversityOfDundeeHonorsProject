@@ -1,4 +1,6 @@
 const Jobsheet = require('../../db').Jobsheet;
+const part = require('../part/part');
+const site = require('../site/site');
 const utils = require('../../utlis');
 
 var exports = (module.exports = {});
@@ -47,6 +49,14 @@ exports.update = (id, data) => {
 			if (!doc) {
 				reject(new Error('Document not found'));
 			} else {
+				doc.parts.forEach(element => {
+					if (!data.parts.map(String).includes(String(element)))
+						part.delete(element);
+				});
+				doc.sites.forEach(element => {
+					if (!data.sites.map(String).includes(String(element)))
+						site.delete(element);
+				});
 				doc = utils.updateJSON(doc, data);
 				doc.meta.modified = Date.now();
 				doc.save(function(err, res) {

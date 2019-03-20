@@ -12,7 +12,8 @@ mixin site(template, s)
 	if s
 		if s.address
 			- name = s.address.street
-	li.uk-padding-remove
+			- id = String(s._id)
+	li.uk-padding-remove(data-id=id)
 		a.uk-accordion-title.uk-padding-small.uk-tile.uk-tile-muted(href="#") #{name}
 		.uk-accordion-content.uk-tile.uk-tile-muted.uk-margin-remove.uk-padding-small
 			+keys(template, s)
