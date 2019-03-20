@@ -2,7 +2,7 @@ module.exports = {
 	status: { type: 'status', title: 'Status' },
 	name: { type: 'string', requiredfield: true, title: 'Name' },
 	purchased: { type: 'date', requiredfield: true, title: 'Purchased' },
-	store: { type: 'string', title: 'Bought from' },
+	store: { type: 'string', requiredfield: true, title: 'Bought from' },
 	cost: { type: 'number', requiredfield: true, title: 'Cost' },
 	postage: { type: 'number', title: 'Postage' },
 	markup: {
