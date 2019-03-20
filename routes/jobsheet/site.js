@@ -10,6 +10,15 @@ router.get('/blank', function(req, res, next) {
 	});
 });
 
+router.get('/all', function(req, res, next) {
+	site.upcomingVisits().then(doc => {
+		res.render('sites', {
+			title: 'OCS',
+			sites: doc
+		});
+	});
+});
+
 router.get('/insert', function(req, res, next) {
 	var data = {
 		address: { street: 'street', city: 'city', postcode: 'postcode' },

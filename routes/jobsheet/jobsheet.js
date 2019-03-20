@@ -66,6 +66,19 @@ var getNewIDs = (objects, type) => {
 	});
 };
 
+var updateJobsheetID = (ids, id, type) => {
+	return new Promise(function(resolve, reject) {
+		try {
+			ids.forEach(element => {
+				type.update(element, { jobsheet: id });
+			});
+			resolve();
+		} catch (err) {
+			reject(err);
+		}
+	});
+};
+
 router.post('/insert', function(req, res, next) {
 	const data = req.body.data;
 	const parts = getNewIDs(data.parts, part);
@@ -78,6 +91,8 @@ router.post('/insert', function(req, res, next) {
 			jobsheet
 				.new(data)
 				.then(doc => {
+					updateJobsheetID(data.parts, doc._id, part);
+					updateJobsheetID(data.sites, doc._id, site);
 					res.send({ id: doc._id });
 				})
 				.catch(err => {
@@ -124,6 +139,8 @@ router.post('/update', function(req, res, next) {
 			jobsheet
 				.update(id, data)
 				.then(doc => {
+					updateJobsheetID(data.parts, doc._id, part);
+					updateJobsheetID(data.sites, doc._id, site);
 					res.send({ id: doc._id });
 				})
 				.catch(err => {

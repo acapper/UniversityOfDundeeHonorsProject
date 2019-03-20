@@ -1,6 +1,8 @@
 const Site = require('../../db').Site;
 const utils = require('../../utlis');
 
+const moment = require('moment');
+
 var exports = (module.exports = {});
 
 exports.new = site => {
@@ -18,6 +20,24 @@ exports.new = site => {
 			if (err) reject(err);
 			resolve(res);
 		});
+	});
+};
+
+exports.upcomingVisits = () => {
+	return new Promise(function(resolve, reject) {
+		const date = moment()
+			.startOf('day')
+			.toDate();
+		Site.find({
+			date: {
+				$gte: date
+			}
+		})
+			.populate('jobsheet')
+			.exec((err, res) => {
+				if (err) reject(err);
+				resolve(res);
+			});
 	});
 };
 

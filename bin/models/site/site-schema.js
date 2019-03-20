@@ -1,4 +1,5 @@
 module.exports = {
+	jobsheet: { type: Number, ref: 'jobsheet' },
 	address: {
 		street: { type: String, required: true },
 		city: { type: String, required: true },

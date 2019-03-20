@@ -18,6 +18,15 @@ exports.new = part => {
 	});
 };
 
+exports.onOrder = () => {
+	return new Promise(function(resolve, reject) {
+		Part.find({ status: 'Ordered' }, function(err, doc) {
+			if (err) reject(err);
+			resolve(doc);
+		});
+	});
+};
+
 exports.findOne = id => {
 	return new Promise(function(resolve, reject) {
 		utils.checkID(id);
