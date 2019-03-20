@@ -57,7 +57,11 @@ mixin inputs(key, template, data, partTemplate, siteTemplate, userList)
 			+label(template)
 			select(required=template.requiredfield name=key).uk-select
 				each o in template.options
-					option #{o}
+					- var e = String(o) == String(data)
+					if e
+						option(selected="selected") #{o}
+					else
+						option #{o}
 		else if template.type == "timestamp"
 			if data
 				label.uk-form-label #{template.title}
