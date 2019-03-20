@@ -1,7 +1,9 @@
 extends layout/layout
 
 block content
-	.uk-flex.uk-flex-wrap.uk-padding(class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-3@xl" uk-height-match="target: > div > .uk-card")
+	.uk-margin-medium-top.uk-margin-left
+		h1.title Parts on order
+	.uk-flex.uk-flex-wrap(class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-3@xl" uk-height-match="target: > div > .uk-card")
 		if !sites || sites.length == 0
 			.uk-padding-small.none		
 				.uk-card.uk-card-default.uk-card-body
