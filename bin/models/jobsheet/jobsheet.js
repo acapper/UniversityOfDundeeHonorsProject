@@ -33,8 +33,11 @@ exports.all = () => {
 
 exports.search = query => {
 	return new Promise(function(resolve, reject) {
+		var sort = { score: { $meta: 'textScore' } };
+		if (query['$text.$search'] == '' || query['$text.$search'] == null)
+			sort = { 'meta.modified': -1 };
 		Jobsheet.find(query, { score: { $meta: 'textScore' } })
-			.sort({ score: { $meta: 'textScore' } })
+			.sort(sort)
 			.exec((err, doc) => {
 				if (err) reject(err);
 				resolve(doc);
