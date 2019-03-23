@@ -111,7 +111,8 @@ $(document).ready(function() {
 		return list;
 	};
 
-	$('#jobsheetform').submit(function() {
+	$(document).on('submit', '#jobsheetform', function() {
+		console.log('submit');
 		event.preventDefault();
 		var data = {};
 		$('#jobsheetform section').each(function() {
@@ -130,7 +131,8 @@ $(document).ready(function() {
 		});
 		console.log(data);
 
-		if ($('#savebutton').val() == 'Save')
+		if ($('.save-button').val() == 'Save') {
+			console.log('here');
 			$.ajax({
 				type: 'POST',
 				url: '/jobsheet/insert',
@@ -140,7 +142,7 @@ $(document).ready(function() {
 					$(location).attr('href', '/jobsheet/' + res.id);
 				}
 			});
-		else {
+		} else {
 			$.ajax({
 				type: 'POST',
 				url: '/jobsheet/update',
@@ -198,5 +200,12 @@ $(document).ready(function() {
 			status.attr('data-val', 'Ordered');
 			$(this).removeClass('uk-button-primary');
 		}
+	});
+
+	$('input[name=due]').change(function() {
+		var changed = $(this);
+		$('input[name=due]').each(function() {
+			if (changed.val() != $(this).val()) $(this).val(changed.val());
+		});
 	});
 });

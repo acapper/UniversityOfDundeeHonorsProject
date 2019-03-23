@@ -33,9 +33,9 @@ mixin firstkeys(template, data)
 							+formgen(template, k, data)
 						.uk-margin-small-top.uk-nav-center
 							if data
-								input.uk-button.uk-button-primary#savebutton(type="submit" value="Update")
+								input.uk-button.uk-button-primary.save-button(type="submit" value="Update")
 							else
-								input.uk-button.uk-button-primary#savebutton(type="submit" value="Save")
+								input.uk-button.uk-button-primary.save-button(type="submit" value="Save")
 						.uk-margin-small-top.uk-nav-center
 							p Print Button
 			else
@@ -58,9 +58,9 @@ mixin sidenav(template, data)
 								+formgen(template.meta, k, data, userList)
 				li.uk-margin-small-top.uk-nav-center
 					if data
-						input.uk-button.uk-button-primary#savebutton(type="submit" value="Update")
+						input.uk-button.uk-button-primary.save-button(type="submit" value="Update")
 					else
-						input.uk-button.uk-button-primary#savebutton(type="submit" value="Save")
+						input.uk-button.uk-button-primary.save-button(type="submit" value="Save")
 				li.uk-margin-small-top.uk-nav-center
 					p Print Button
 				li.uk-parent.uk-nav-header(class="uk-visible@m")
