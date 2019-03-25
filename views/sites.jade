@@ -2,7 +2,7 @@ extends layout/layout
 
 block content
 	.uk-margin-medium-top.uk-margin-left
-		h1.title Parts on order
+		h1.title Upcoming site visits
 	.uk-flex.uk-flex-wrap(class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-3@xl" uk-height-match="target: > div > .uk-card")
 		if !sites || sites.length == 0
 			.uk-padding-small.none
@@ -19,20 +19,23 @@ block content
 					if s.time
 						h4.uk-margin-small Time
 						p.uk-margin-small #{s.time}
-					if s.address
+					if s.address && (s.address.street || s.address.city || s.address.postcode)
 						h4.uk-margin-small Address
 						address.uk-margin-small
-							| Street: #{s.address.street}
-							br
-							| City: #{s.address.city}
-							br
-							| Postcode: #{s.address.postcode}
+							if s.address.street
+								| Street: #{s.address.street}
+								br
+							if s.address.city
+								| City: #{s.address.city}
+								br
+							if s.address.postcode
+								| Postcode: #{s.address.postcode}
 					if s.notes
 						h4.uk-margin-small Notes
 						p.uk-margin-small #{s.notes}
 					a.uk-margin(href="/jobsheet/"+s.jobsheet._id) View Jobsheet
 					br
-					if s.address
+					if s.address && (s.address.street || s.address.city || s.address.postcode)
 						- var address = ""
 						if s.address.street
 							- address = address + s.address.street.replace(/\s+/g, '+')
