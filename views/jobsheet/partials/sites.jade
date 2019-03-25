@@ -10,9 +10,11 @@ mixin addsite(template, data)
 mixin site(template, s)
 	- var name = "New Site Visit"
 	if s
-		if s.address
+		if s.address && s.address.street != ""
 			- name = s.address.street
 			- id = String(s._id)
+		else
+			- name = "Site Visit"
 	li.uk-padding-remove(data-id=id)
 		a.uk-accordion-title.uk-padding-small.uk-tile.uk-tile-muted(href="#") #{name}
 		.uk-accordion-content.uk-tile.uk-tile-muted.uk-margin-remove.uk-padding-small
