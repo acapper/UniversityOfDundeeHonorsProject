@@ -208,4 +208,50 @@ $(document).ready(function() {
 			if (changed.val() != $(this).val()) $(this).val(changed.val());
 		});
 	});
+
+	function click(node) {
+		/* https://github.com/eligrey/FileSaver.js/ */
+		try {
+			node.dispatchEvent(new MouseEvent('click'));
+		} catch (e) {
+			var evt = document.createEvent('MouseEvents');
+			evt.initMouseEvent(
+				'click',
+				true,
+				true,
+				window,
+				0,
+				0,
+				0,
+				80,
+				20,
+				false,
+				false,
+				false,
+				false,
+				0,
+				null
+			);
+			node.dispatchEvent(evt);
+		}
+	}
+
+	$('.print-button').click(function(event) {
+		event.preventDefault();
+		var name = $('#jobsheetform section[id="Customer Details"]')
+			.find("input[name='name']")
+			.val();
+		$('#labelname').text(name);
+		var label = document.getElementById('label');
+		label.classList.remove('uk-hidden');
+		domtoimage.toPng(label).then(function(dataUrl) {
+			setTimeout(function() {
+				$('#label').addClass('uk-hidden');
+				var link = document.createElement('a');
+				link.download = $('#title').text() + ' label.png';
+				link.href = dataUrl;
+				click(link);
+			}, 100);
+		});
+	});
 });
