@@ -207,5 +207,5 @@ $(document).ready(function() {
 		$('input[name=due]').each(function() {
 			if (changed.val() != $(this).val()) $(this).val(changed.val());
 		});
-	});
+	}); 
 });
