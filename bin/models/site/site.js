@@ -30,6 +30,7 @@ exports.upcomingVisits = () => {
 			}
 		})
 			.populate('jobsheet')
+			.sort({ date: 1 })
 			.exec((err, res) => {
 				if (err) reject(err);
 				resolve(res);
