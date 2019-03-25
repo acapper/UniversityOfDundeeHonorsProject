@@ -22,7 +22,7 @@ block content
 					if s.address
 						h4.uk-margin-small Address
 						address.uk-margin-small
-							|Street: #{s.address.street}
+							| Street: #{s.address.street}
 							br
 							| City: #{s.address.city}
 							br
@@ -32,4 +32,17 @@ block content
 						p.uk-margin-small #{s.notes}
 					a.uk-margin(href="/jobsheet/"+s.jobsheet._id) View Jobsheet
 					br
-					//a(href="/jobsheet/"+s.jobsheet._id) Get Directions
+					if s.address
+						- var address = ""
+						if s.address.street
+							- address = address + s.address.street.replace(/\s+/g, '+')
+						if s.address.city
+							if address != "" && s.address.city
+								- address = address + "+"
+							- address = address + s.address.city.replace(/\s+/g, '+')
+						if s.address.postcode
+							if address != "" && s.address.postcode
+								- address = address + "+"
+							- address = address + s.address.postcode.replace(/\s+/g, '+')
+
+						a(href="https://www.google.co.uk/maps/search/"+address) Get Directions
