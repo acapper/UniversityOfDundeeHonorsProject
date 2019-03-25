@@ -191,11 +191,11 @@ $(document).ready(function() {
 			.find('.status');
 		if (status.text() == 'Status: Ordered') {
 			$(this).text('Set to ordered');
-			status.text('Status: Arrived');
-			status.attr('data-val', 'Arrived');
+			status.text('Status: Delivered');
+			status.attr('data-val', 'Delivered');
 			$(this).addClass('uk-button-primary');
 		} else {
-			$(this).text('Set to arrived');
+			$(this).text('Set to delivered');
 			status.text('Status: Ordered');
 			status.attr('data-val', 'Ordered');
 			$(this).removeClass('uk-button-primary');
@@ -207,5 +207,5 @@ $(document).ready(function() {
 		$('input[name=due]').each(function() {
 			if (changed.val() != $(this).val()) $(this).val(changed.val());
 		});
-	}); 
+	});
 });

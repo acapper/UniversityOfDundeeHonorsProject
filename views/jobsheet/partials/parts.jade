@@ -19,8 +19,8 @@ mixin part(template, p)
 			+keys(template, p)
 			button(type="button").uk-button.uk-button-danger.uk-float-right.button-delete Delete
 			if !p
-				button(type="button").uk-button.uk-float-right.button-status Set to arrived
+				button(type="button").uk-button.uk-float-right.button-status Set to delivered
 			else if p.status == "Arrived"
 				button(type="button").uk-button.uk-button-primary.uk-float-right.button-status Set to ordered
 			else
-				button(type="button").uk-button.uk-float-right.button-status Set to arrived
+				button(type="button").uk-button.uk-float-right.button-status Set to delivered
