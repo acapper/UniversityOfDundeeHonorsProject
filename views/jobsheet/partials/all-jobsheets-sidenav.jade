@@ -1,6 +1,15 @@
-mixin sidenav()
+mixin sidenav(users, check, user)
 	div(class="uk-width-1-4@m uk-visible@m")
 		ul.uk-nav.uk-nav-default(uk-nav uk-sticky="offset: 60")
+			li.uk-margin-small-top
+				label.uk-form-label Staff Assigned
+				select(id="searchusers" name="searchusers").uk-select
+					each u in users
+						- var e = String(u.username) == String(user)
+						if e && check
+							option(data-id=u._id selected="selected") #{u.username}
+						else
+							option(data-id=u._id selected=false) #{u.username}
 			li.uk-margin-small-top
 				label.uk-form-label(for="searchduedaterange")
 					| Due date range
