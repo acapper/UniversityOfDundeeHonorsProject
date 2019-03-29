@@ -37,7 +37,20 @@ router.get('/all', function(req, res, next) {
 		res.render('jobsheet/all', {
 			title: 'OCS',
 			jobsheets: docs,
-			user: req.user
+			user: req.user,
+			users: userList
+		});
+	});
+});
+
+router.get('/assigned', function(req, res, next) {
+	jobsheet.all().then(docs => {
+		res.render('jobsheet/all', {
+			title: 'OCS',
+			jobsheets: docs,
+			user: req.user,
+			users: userList,
+			check: true
 		});
 	});
 });
@@ -172,6 +185,7 @@ router.get('/all/search', function(req, res, next) {
 	const created = req.query.created;
 	const sitevisits = req.query.sitevisits;
 	const parts = req.query.parts;
+	const user = req.query.user;
 
 	var q = {};
 
@@ -215,6 +229,9 @@ router.get('/all/search', function(req, res, next) {
 	}
 	if (parts == 'true') {
 		q['parts.0'] = { $exists: true };
+	}
+	if (user != null && user != '') {
+		q['meta.assigned'] = user;
 	}
 
 	jobsheet
