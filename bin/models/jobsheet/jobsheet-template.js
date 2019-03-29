@@ -55,13 +55,9 @@ module.exports = {
 		type: 'part'
 	},
 	invoice: {
-		section: 'Order Details',
+		section: 'Invoice Details',
 		number: { type: 'number', title: 'Invoice Number' },
-		amount: { type: 'number', title: 'Amount' },
-		markup: {
-			fixed: { type: 'number', title: 'Fixed Markup' },
-			percent: { type: 'number', title: 'Percent Markup' }
-		},
+		amount: { type: 'number', title: 'Invoice Amount' },
 		sent: { type: 'boolean', title: 'Sent?' },
 		payment: { type: 'string', title: 'Payment Type' },
 		reference: { type: 'string', title: 'Reference Number' }

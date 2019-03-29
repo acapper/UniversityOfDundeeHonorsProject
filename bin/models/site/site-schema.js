@@ -1,5 +1,6 @@
 module.exports = {
 	jobsheet: { type: Number, ref: 'jobsheet' },
+	duration: { type: Number },
 	address: {
 		street: { type: String },
 		city: { type: String },
