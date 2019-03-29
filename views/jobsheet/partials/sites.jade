@@ -10,7 +10,7 @@ mixin addsite(template, data)
 mixin site(template, s)
 	- var name = "New Site Visit"
 	if s
-		if s.address && s.address.street != ""
+		if s.address && s.address.street
 			- name = s.address.street
 			- id = String(s._id)
 		else
