@@ -1,4 +1,10 @@
 var search = function() {
+	var user = null;
+	try {
+		user = $('#searchusers option:selected')
+			.attr('data-id')
+			.replace(/['"]+/g, '');
+	} catch (e) {}
 	$.ajax({
 		type: 'GET',
 		url: '/jobsheet/all/search',
@@ -8,9 +14,7 @@ var search = function() {
 			created: $('#searchcreateddaterange').val(),
 			sitevisits: $('#searchhassitevisit').is(':checked'),
 			parts: $('#searchhasparts').is(':checked'),
-			user: $('#searchusers option:selected')
-				.attr('data-id')
-				.replace(/['"]+/g, '')
+			user: user
 		},
 		success: function(res) {
 			$('#table-body').replaceWith(res);
