@@ -254,4 +254,24 @@ $(document).ready(function() {
 			}, 100);
 		});
 	});
+
+	$('.save-button').click(function() {
+		$(':input[required]').each(function() {
+			console.log($(this));
+			if (
+				!$(this).val() &&
+				!$(this)
+					.closest('li')
+					.hasClass('uk-open') &&
+				$(this).attr('name') != 'duedate'
+			) {
+				UIkit.accordion($(this).closest('ul')).toggle(
+					$(this)
+						.closest('li')
+						.index(),
+					true
+				);
+			}
+		});
+	});
 });
