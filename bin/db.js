@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
 const config = require('../config');
-const dbname = config.database.connection;
+var dbname = '';
+if (config.database.travis == false && config.database.travis != null) {
+	dbname = config.database.connection;
+} else {
+	dbname = 'mongodb://travis:test@127.0.0.1/HonorsProject';
+}
 const Schema = mongoose.Schema;
 
 var exports = (module.exports = {});
