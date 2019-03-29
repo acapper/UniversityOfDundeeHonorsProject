@@ -81,6 +81,17 @@ mixin inputs(key, template, data, partTemplate, siteTemplate, userList)
 				p.status(data-val=data) Status: #{data}
 			else
 				p.status(data-val=data) Status: Ordered
+		else if template.type == "otherselect"
+			+label(template)
+			.other-select
+				select(required=template.requiredfield name=key).uk-select
+					each o in template.options
+						- var e = String(o) == String(data)
+						if e
+							option(selected="selected") #{o}
+						else
+							option #{o}
+				input.uk-input(type="text" value=data name=key required=template.requiredfield)
 		else
 			p No input type for: #{key} #{template.type}
 
