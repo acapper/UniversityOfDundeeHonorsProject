@@ -53,3 +53,10 @@ jobsheetSchema.pre('remove', function(next, res) {
 	next();
 });
 exports.Jobsheet = mongoose.model('jobsheet', jobsheetSchema);
+
+process.on('SIGINT', function() {
+	mongoose.connection.close(function() {
+		console.log('Mongoose disconnected on app termination');
+		process.exit(0);
+	});
+});
