@@ -7,7 +7,10 @@ var search = function() {
 			due: $('#searchduedaterange').val(),
 			created: $('#searchcreateddaterange').val(),
 			sitevisits: $('#searchhassitevisit').is(':checked'),
-			parts: $('#searchhasparts').is(':checked')
+			parts: $('#searchhasparts').is(':checked'),
+			user: $('#searchusers option:selected')
+				.attr('data-id')
+				.replace(/['"]+/g, '')
 		},
 		success: function(res) {
 			$('#table-body').replaceWith(res);
