@@ -8,6 +8,7 @@ mixin addsite(template, data)
 		a.uk-accordion-title.add-site Add Site Visit
 
 mixin site(template, s)
+	- var id = null
 	- var name = "New Site Visit"
 	if s
 		if s.address && s.address.street
