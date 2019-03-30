@@ -1,20 +1,33 @@
-$(document).on('change', '#partlist li', function() {
+$(document).on('change', '#partlist li', function(e) {
 	var part = $(this).find('.uk-accordion-content');
 	var sale = part.find('input[name=saleprice]');
-	var cost = part.find('input[name=cost]').val();
-	var postage = part.find('input[name=postage]').val();
-	var fixed = part.find('input[name=fixed]').val();
-	var percent = part.find('input[name=percent]').val();
+	var cost = part.find('input[name=cost]');
+	var postage = part.find('input[name=postage]');
+	var fixed = part.find('input[name=fixed]');
+	var percent = part.find('input[name=percent]');
 
-	if (!cost || cost == '') cost = 0;
-	if (!postage || postage == '') postage = 0;
-	if (!fixed || fixed == '') fixed = 0;
-	if (!percent || percent == '') percent = 0;
+	if (
+		e.target == cost[0] ||
+		e.target == postage[0] ||
+		e.target == fixed[0] ||
+		e.target == percent[0]
+	) {
+		cost = cost.val();
+		postage = postage.val();
+		fixed = fixed.val();
+		percent = percent.val();
 
-	var total = Number(cost) + Number(postage);
-	if (percent != 0) total = Number(total) + Number(total * (percent / 100));
-	if (fixed != 0) total = Number(total) + Number(fixed);
-	sale.val(total);
+		if (!cost || cost == '') cost = 0;
+		if (!postage || postage == '') postage = 0;
+		if (!fixed || fixed == '') fixed = 0;
+		if (!percent || percent == '') percent = 0;
+
+		var total = Number(cost) + Number(postage);
+		if (percent != 0)
+			total = Number(total) + Number(total * (percent / 100));
+		if (fixed != 0) total = Number(total) + Number(fixed);
+		sale.val(total);
+	}
 });
 
 $(document).on('change', 'input[name=fixed]', function() {
