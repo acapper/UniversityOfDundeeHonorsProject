@@ -3,49 +3,66 @@ extends layout/layout
 block content
 	.uk-margin-medium-top.uk-margin-left
 		h1.title Upcoming site visits
-	.uk-flex.uk-flex-wrap(class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-3@xl" uk-height-match="target: > div > .uk-card")
-		if !sites || sites.length == 0
-			.uk-padding-small.none
-				.uk-card.uk-card-default.uk-card-body
-					h3.uk-card-title There are currently no site visits
-		each s in sites
-			.uk-padding-small
-				.uk-card.uk-card-default.uk-card-body 
-					h3.uk-card-title #{s.jobsheet.customer.name}
-					if s.date
-						- var date = moment(new Date(s.date)).format('MMM Do YYYY')
-						h4.uk-margin-small Date
-						p.uk-margin-small #{date}
-					if s.time
-						h4.uk-margin-small Time
-						p.uk-margin-small #{s.time}
-					if s.address && (s.address.street || s.address.city || s.address.postcode)
-						h4.uk-margin-small Address
-						address.uk-margin-small
+	table.uk-table.uk-table-striped.uk-text-middle
+		thead
+			tr
+				th Customer Name
+				th Date
+				th Time
+				th Street
+				th City
+				th Postcode
+				th Notes
+				th
+				th
+		tbody
+			if !sites || sites.length == 0
+				tr.none.uk-placeholder
+					td.uk-text-middle There are currently no parts on order
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+			else
+				each s in sites
+					tr
+						td.uk-text-middle #{s.jobsheet.customer.name}
+						td.uk-text-middle
+							if s.date
+								- var date = moment(new Date(s.date)).format('MMM Do YYYY')
+								| #{date}
+						td.uk-text-middle
+							if s.time
+								| #{s.time}
+						td.uk-text-middle
 							if s.address.street
-								| Street: #{s.address.street}
-								br
+								| #{s.address.street}
+						td.uk-text-middle
 							if s.address.city
-								| City: #{s.address.city}
-								br
+								| #{s.address.city}
+						td.uk-text-middle
 							if s.address.postcode
-								| Postcode: #{s.address.postcode}
-					if s.notes
-						h4.uk-margin-small Notes
-						p.uk-margin-small #{s.notes}
-					a.uk-margin(href="/jobsheet/"+s.jobsheet._id) View Jobsheet
-					br
-					if s.address && (s.address.street || s.address.city || s.address.postcode)
-						- var address = ""
-						if s.address.street
-							- address = address + s.address.street.replace(/\s+/g, '+')
-						if s.address.city
-							if address != "" && s.address.city
-								- address = address + "+"
-							- address = address + s.address.city.replace(/\s+/g, '+')
-						if s.address.postcode
-							if address != "" && s.address.postcode
-								- address = address + "+"
-							- address = address + s.address.postcode.replace(/\s+/g, '+')
-
-						a(href="https://www.google.co.uk/maps/search/"+address) Get Directions
+								| #{s.address.postcode}
+						td.uk-text-middle
+							if s.notes
+								| #{s.notes}
+						td.uk-text-middle
+							a(href="/jobsheet/"+s.jobsheet._id) View Jobsheet
+						td.uk-text-middle
+							if s.address && (s.address.street || s.address.city || s.address.postcode)
+								- var address = ""
+								if s.address.street
+									- address = address + s.address.street.replace(/\s+/g, '+')
+								if s.address.city
+									if address != "" && s.address.city
+										- address = address + "+"
+									- address = address + s.address.city.replace(/\s+/g, '+')
+								if s.address.postcode
+									if address != "" && s.address.postcode
+										- address = address + "+"
+									- address = address + s.address.postcode.replace(/\s+/g, '+')
+								a(href="https://www.google.co.uk/maps/search/"+address) Get Directions

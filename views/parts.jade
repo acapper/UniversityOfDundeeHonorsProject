@@ -3,28 +3,54 @@ extends layout/layout
 block content
 	.uk-margin-medium-top.uk-margin-left
 		h1.title Parts on order
-	.uk-flex.uk-flex-wrap(class="uk-child-width-1-1@s uk-child-width-1-2@m uk-child-width-1-3@l uk-child-width-1-3@xl" uk-height-match="target: > div > .uk-card")
-		if !parts || parts.length == 0
-			.uk-padding-small.none		
-				.uk-card.uk-card-default.uk-card-body
-					h3.uk-card-title There are currently no parts on order
-		each p in parts
-			.uk-padding-small.part
-				.uk-card.uk-card-default.uk-card-body 
-					h3.uk-card-title #{p.name}
-					if p.status
-						h4.uk-margin-small Status
-						p.uk-margin-small #{p.status}
-					if p.purchased
-						- var date = moment(new Date(p.purchased)).format('MMM Do YYYY')
-						h4.uk-margin-small Date Purchased
-						p.uk-margin-small #{date}
-					if p.cost
-						h4.uk-margin-small Cost
-						p.uk-margin-small £ #{p.cost}
-					if p.store
-						h4.uk-margin-small Store
-						p.uk-margin-small #{p.store}
-					a(id=p._id href="/jobsheet/"+p.jobsheet) View Jobsheet
-					button(data-id=p._id type="button").uk-margin-small.uk-button.button-status Set status to delivered
+	table.uk-table.uk-table-striped.uk-text-middle
+		thead
+			tr
+				th Name
+				th Status
+				th Date Purchased
+				th Cost
+				th Store
+				th 
+				th
+		tbody
+			if !parts || parts.length == 0
+				tr.none.uk-placeholder
+					td.uk-text-middle There are currently no parts on order
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+			else
+				tr.none.uk-placeholder.uk-hidden
+					td.uk-text-middle There are currently no parts on order
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+					td.uk-text-middle
+				tr.uk-hidden
+				each p in parts
+					tr.part
+						td.uk-text-middle #{p.name}
+						td.uk-text-middle
+							if p.status
+								| #{p.status}
+						td.uk-text-middle
+							if p.purchased
+								- var date = moment(new Date(p.purchased)).format('MMM Do YYYY')
+								| #{date}
+						td.uk-text-middle
+							if p.cost
+								| £ #{p.cost}
+						td.uk-text-middle
+							if p.store
+								| #{p.store}
+						td.uk-text-middle
+							a(id=p._id href="/jobsheet/"+p.jobsheet) View Jobsheet
+						td.uk-text-middle
+							button(data-id=p._id type="button").uk-button.button-status Set status to delivered
 	script(src='/javascripts/parts.js')
