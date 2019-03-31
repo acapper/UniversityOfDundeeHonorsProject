@@ -25,7 +25,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
-	session({ secret: 'keyboard cat', resave: true, saveUninitialized: false })
+	session({
+		secret: 'something different',
+		cookie: { maxAge: 600000 },
+		rolling: true,
+		resave: true,
+		saveUninitialized: false
+	})
 );
 app.use(passport.initialize());
 app.use(passport.session());
