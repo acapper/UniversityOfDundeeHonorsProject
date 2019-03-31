@@ -8,6 +8,7 @@ module.exports = {
 		title: 'Bought from',
 		options: ['Other', 'Amazon', 'Ebay']
 	},
+	link: { type: 'string', title: 'Link' },
 	cost: { type: 'number', requiredfield: true, title: 'Cost' },
 	postage: { type: 'number', title: 'Postage' },
 	markup: {

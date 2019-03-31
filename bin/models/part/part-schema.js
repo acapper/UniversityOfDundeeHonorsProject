@@ -4,6 +4,7 @@ module.exports = {
 	name: { type: String, required: true },
 	purchased: { type: Date, required: true },
 	store: { type: String, required: true },
+	link: { type: String },
 	cost: { type: Number, required: true },
 	postage: Number,
 	markup: { fixed: Number, percent: Number },
