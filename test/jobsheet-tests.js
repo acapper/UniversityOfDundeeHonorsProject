@@ -1,6 +1,6 @@
 const jobsheet = require('../bin/models/jobsheet/jobsheet');
 
-describe('User Tests', function() {
+describe('Job Sheets Tests', function() {
 	describe('All', function() {
 		it('Should successfully get all job sheets', function(done) {
 			jobsheet
